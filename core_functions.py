@@ -15,7 +15,7 @@ class plyer:
     
     def __init__(self,n):
         self.player = n
-        print('player {}'.format(self.player))
+        # print('player {}'.format(self.player))
 
     def switch(self):
         
@@ -57,8 +57,27 @@ def end(board):
 
 # boardformat is [home][6,5,4,3,2,1] with 0 at right most
 
+def checklegal(board,playerinfo,pit):
+    currentplayer = playerinfo['currentplayer']
+    if pit not in [i for i in range(len(board[0][0]))]:
+        return False
+    
+    elif board[currentplayer.player][0][pit] == 0:
+        return False
+
+    else: 
+        return True
+
 #this function makes a move on the board
-def playermove(board,playerinfo,pit):
+def playermove(board,playerinfo,pit,options):
+    try: 
+        verbose = options['verbose']
+    except:
+        verbose = 0
+
+    
+
+
     currentplayer = playerinfo['currentplayer']
     currentenemy = playerinfo['currentenemy']
     player = playerinfo['player']
@@ -69,11 +88,15 @@ def playermove(board,playerinfo,pit):
     # to be +1 as the player adds marbles starting in pit+1
 
     #find how many marbles, n in selected pit
-    n = board[player.player][0][pit]
+
+    
+
+
+    n = board[currentplayer.player][0][pit]
     spaces = 7 - pit
     
     # removes marbles in selected pit
-    board[player.player][0][pit] = 0
+    board[currentplayer.player][0][pit] = 0
     
     
     #putting marbles in next pit
@@ -99,13 +122,15 @@ def playermove(board,playerinfo,pit):
                 n -= 1
             except:
                 break
-            print(board)
+            if verbose == 1:
+                print(board)
     
         if player.player == currentplayer.player:
-            print('scored')            
             score(board,player,1)
             n -=1
-            print(board)
+            if verbose == 1:
+                print('scored') 
+                print(board)
 
         
         #swap board sides on overflow loop iteration end
@@ -130,7 +155,8 @@ def playermove(board,playerinfo,pit):
             try:
                 board[player.player][0][pit+i] = board[player.player][0][pit+i] + 1
                 n -= 1
-                print(board)
+                if verbose == 1:
+                    print(board)
             except:
                 break
     lastpitn = pit+i
@@ -143,10 +169,12 @@ def playermove(board,playerinfo,pit):
     #check if score in underflow loop, free go if it happens 
     if n == 1:
         if player.player == currentplayer.player:
-            print('scored')
+            
             score(board,player,1)
             n -=1
-            print(board)
+            if verbose == 1:
+                print('scored')
+                print(board)
         
         
     else:
@@ -174,7 +202,8 @@ def checkend(board):
 
     else:            
         return False, None
-#3 rules of congkak
+    #3 rules of congkak
+
 def checkfree(board,playerinfo,lastpit):
     print('####\ncheck free')
     currentplayer = playerinfo['currentplayer']
@@ -215,14 +244,14 @@ def checkskip(board, playerinfo, lastpit):
     player = playerinfo['player']
     enemy = playerinfo['enemy']
     
-    #sets enemy board to 0 and transfers amt to player score
+
     lastpitn = lastpit[0]
     lastpitside = lastpit[1]
 
     if lastpitn == len(board[0][0]):
         return False
 
-    if board[lastpitside][0][lastpitn] == 0:
+    if board[player.player][0][lastpitn] == 0:
         print('skip occured')
         return True
     else:
@@ -236,132 +265,41 @@ def checkskip(board, playerinfo, lastpit):
 
 def stealfunc(board,playerinfo,lastpit):
     lastpitn = lastpit[0]
+    currentplayer = playerinfo['currentplayer']
+    currentenemy = playerinfo['currentenemy']
+
     print('steal occured!')
-    enemy = plyer(player.player).switch()
-    amt = board[enemy.player][0][7-lastpitn] 
+    amt = board[currentenemy.player][0][7-lastpitn] 
     #clearing pit
-    board[enemy.player][0][len(board[0][0])-lastpitn-1] = 0
-    board[player.player][1] =+ amt
+    print('amount stolen',amt)
+    board[currentenemy.player][0][len(board[0][0])-lastpitn-1] = 0
+    print('before steal',board[currentplayer.player][1])
+    board[currentplayer.player][1] += amt
+    print('after steal',board[currentplayer.player][1])
 
     return board
 
+def drawboard(board):
+    p2 = board[1][0]
+    p1 = [i for i in reversed(board[0][0])]
+    p1home = board[0][1]
+    p2home = board[1][1]
+
+    print('\n')
+    print('player2 score:',p2home)
+    print(p2)
+    print(p1)
+    print('player1 score:',p1home)
+    print('\n')
+
+
+
+#this function plays the best play of the turn
+def AIturn(board):
+    play = 0
+    return play
 
 
 
 
 
-
-
-
-# pstart = input('Player1 or Player2 start, player1 default (y for player1 start)')
-pstart = 1
-
-if pstart in ['y',1]:
-    player = plyer(0)
-    enemy = plyer(1)
-else: 
-    player = plyer(1)
-    enemy = plyer(0)
-
-
-
-test = 8
-pit = 0
-location1 = [1,0]
-
-board = start(7)
-board[0][0][0] = 8
-board[1][0][0] = 0
-board[1][0][2] = 5
-board[1][0][3] = 10
-
-
-
-
-
-print('test start has {}'.format(test))
-game = True
-print('starting board')
-print(board)
-print('\n')
-
-skip = False
-turns = 0
-skipturns  = 0
-game = True
-
-#number of turns for a player
-while game is True:
-    turns += 1
-    turns = skipturns + turns #adds turns from skip
-    print('debug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',turns)
-
-   
-    while turns > 0:
-         #resetting the status
-        skip = False
-        skipturns = 0
-        steal = False
-        free = False
-            
-            
-        oldboard = copy.deepcopy(board)
-        currentplayer = plyer(player.player)
-        currentenemy = plyer(enemy.player)
-
-        #player go
-        print('\n\n#############################')
-        print('board\n',board)
-        print("Player {}'s go".format(currentplayer.player + 1))
-        print('Number of moves remaining',turns)
-        #pit selection
-        selectpit = int(input('select pit (0-6)'))
-
-
-        #making a move, extra turn on landing at home is implemented within
-        playerinfo = {'currentplayer':currentplayer, 'currentenemy':currentenemy,
-                       'player':player, 'enemy':enemy}
-        board,lastpit = playermove(board,playerinfo,selectpit)
-        
-
-        #checks
-        print('checks initiated')
-        print('currentplayer',currentplayer.player)
-        print('currentenemy',currentenemy.player)
-        print('player',player.player)
-        print('enemy',enemy.player)
-
-        #checking for free go
-        free = checkfree(oldboard, playerinfo, lastpit)
-        if free is True:
-            turns += 1
-
-        #checking for steal
-        steal = checksteal(oldboard,playerinfo,lastpit)
-        if steal is True:
-            board = stealfunc(board,playerinfo,lastpit)
-
-        # checking for skip
-        skip = checkskip(oldboard,playerinfo,lastpit)
-        if skip is True:
-            skipturns = 1
-        
-
-        #check if game has ended
-        win,winner = checkend(oldboard)
-        if win == True:
-            game = False
-            
-            print('game has ended')
-            if win is None:
-                print('Game Draw')
-            else:
-                print('Player {} wins'.format(player.player))
-        
-
-
-
-        print('newboard\n',board)
-        
-        turns -= 1
-        
