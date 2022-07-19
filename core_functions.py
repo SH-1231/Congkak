@@ -206,10 +206,10 @@ def checkend(board):
 
 def checkfree(board,playerinfo,lastpit):
     print('####\ncheck free')
-    currentplayer = playerinfo['currentplayer']
-    currentenemy = playerinfo['currentenemy']
-    player = playerinfo['player']
-    enemy = playerinfo['enemy']
+    # currentplayer = playerinfo['currentplayer']
+    # currentenemy = playerinfo['currentenemy']
+    # player = playerinfo['player']
+    # enemy = playerinfo['enemy']
 
     
     lastpitn = lastpit[0]
@@ -221,28 +221,33 @@ def checkfree(board,playerinfo,lastpit):
         return False
 
 def checksteal(board, playerinfo, lastpit):
+    #checking current board
     print('####\ncheck steal')
     currentplayer = playerinfo['currentplayer']
-    currentenemy = playerinfo['currentenemy']
-    player = playerinfo['player']
-    enemy = playerinfo['enemy']
+    # currentenemy = playerinfo['currentenemy']
+    # player = playerinfo['player']
+    # enemy = playerinfo['enemy']
+
     lastpitn = lastpit[0]
+    lastpitside = lastpit[1]
     #sets enemy board to 0 and transfers amt to player score
     if lastpitn == len(board[0][0]):
         return False
 
-    if board[currentplayer.player][0][lastpitn] == 0:
+    if board[currentplayer.player][0][lastpitn] == 1:
         print('steal occured')
         return True
+
     else:
         return False
 
 def checkskip(board, playerinfo, lastpit):
+    #checking current board
     print('####\ncheck skip')
-    currentplayer = playerinfo['currentplayer']
-    currentenemy = playerinfo['currentenemy']
-    player = playerinfo['player']
-    enemy = playerinfo['enemy']
+    # currentplayer = playerinfo['currentplayer']
+    # currentenemy = playerinfo['currentenemy']
+    # player = playerinfo['player']
+    # enemy = playerinfo['enemy']
     
 
     lastpitn = lastpit[0]
@@ -251,7 +256,7 @@ def checkskip(board, playerinfo, lastpit):
     if lastpitn == len(board[0][0]):
         return False
 
-    if board[player.player][0][lastpitn] == 0:
+    if board[lastpitside][0][lastpitn] == 1:
         print('skip occured')
         return True
     else:
@@ -269,7 +274,7 @@ def stealfunc(board,playerinfo,lastpit):
     currentenemy = playerinfo['currentenemy']
 
     print('steal occured!')
-    amt = board[currentenemy.player][0][7-lastpitn] 
+    amt = board[currentenemy.player][0][len(board[0][0])-lastpitn-1] 
     #clearing pit
     print('amount stolen',amt)
     board[currentenemy.player][0][len(board[0][0])-lastpitn-1] = 0

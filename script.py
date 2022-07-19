@@ -59,7 +59,7 @@ while game is True:
     currentenemy = currentenemy.switch() 
    
     while turns > 0:
-         #resetting the status
+        #resetting the status
         skip = False
         skipturns = 0
         steal = False
@@ -115,22 +115,29 @@ while game is True:
         #checks
         print('#############\nchecks initiated')
         
+        ##checking if lastpit has n == 1
 
-        #checking for free go
-        free = checkfree(oldboard, playerinfo, lastpit)
+        #checking for free go. 
+        free = checkfree(board, playerinfo, lastpit)
         if free is True:
             turns += 1
+        
+        #checking for steal or skip, this only occurs when lastpitn ==1
+        
+        elif board[lastpit[1]][0][lastpit[0]] == 1:
+            print('lastpit has 1 marble, checking for steal and skip')
+            #checking for steal
+            steal = checksteal(board,playerinfo,lastpit)
+            if steal is True:
+                board = stealfunc(board,playerinfo,lastpit)
 
-        #checking for steal
-        steal = checksteal(oldboard,playerinfo,lastpit)
-        if steal is True:
-            board = stealfunc(board,playerinfo,lastpit)
+            # checking for skip
+            skip = checkskip(board,playerinfo,lastpit)
+            if skip is True:
+                skipturns = 1
 
-        # checking for skip
-        skip = checkskip(oldboard,playerinfo,lastpit)
-        if skip is True:
-            skipturns = 1
-
+        else:
+            pass
         print('#############\n')
 
         print('end of round playerinfo')
