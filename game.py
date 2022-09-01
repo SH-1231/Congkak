@@ -10,25 +10,28 @@ from core_functions import plyer
 
 class Game:
 
-    def __init__(self):
-        self.initialize_game()
-
+    # Initialization of the class
+    def __init__(self,n):
+        self.n = n
     
-    def start(self,n):
+    #This function contructs the board used to play
+    def start(self):
+        n = self.n
         p1 = {0:[n,n,n,n,n,n,n], 1:0}
         p2 = {0:[n,n,n,n,n,n,n], 1:0}
 
         b = [p1,p2]
         return b
 
+    #Initializes the game
     def initialize_game(self):
         #initialize the board
-        self.board = self.start(7)
+        self.board = self.start()
         self.gameturns = 0
         self.lastmove = 0
         self.lastpit = 0
 
-        #statuses
+        #3 rules of congkak checks
         self.free = False
         self.skip = False
         self.skip = False
@@ -42,12 +45,13 @@ class Game:
         self.options = {'verbose':0}
 
 
-
+        #reversing player 2's orientation for the user to see
         p2 = self.board[1][0]
         p1 = [i for i in reversed(self.board[0][0])]
         p1home = self.board[0][1]
         p2home = self.board[1][1]
 
+        #saving the gamestate (this is broken)
         if 'movelist.txt' in os.getcwd():
             os.remove('movelist.txt') 
         movelist = open('movelist.txt','w')
@@ -61,11 +65,8 @@ class Game:
         movelist.close()
 
 
-        
-        
-        
-        
-
+   
+    #This function draws the board on the terminal
     def drawboard(self):
         p2 = self.board[1][0]
         p1 = [i for i in reversed(self.board[0][0])]
@@ -79,6 +80,7 @@ class Game:
         print('player1 score:',p1home)
         print('\n')
 
+    #This function determines if the move made by the current player is legal
     def isvalid(self,selectpit): 
         if selectpit not in [i for i in range(len(self.board[0][0]))]:  
             return False
@@ -87,6 +89,7 @@ class Game:
         else:
             return True
     
+    #This function checks if the current player's side of the board is empty
     def checkemptyside(self):
         playern = 0
         for i in range(len(self.board[0][0])):
@@ -96,9 +99,10 @@ class Game:
         else:
             return False
 
+    #This function checks if the game is still live
     def check_game_status(self):
-    #goes through board and counts the total marbles in play
-    #returns True if it is still live
+        #goes through board and counts the total marbles in play
+        #returns True if it is still live
         n = 0
         p1 = self.board[0][0]
         p2 = self.board[1][0]
@@ -120,10 +124,12 @@ class Game:
         else:            
             return True, None
 
+    #This function scores points
     def score(self,points):
         self.board[self.currentplayer.player][1] += points
         return self.board
 
+    #This function allows for a player to make a move
     def playermove(self,pit,options):
         try: 
             verbose = options['verbose']
@@ -233,6 +239,7 @@ class Game:
         # lastpit = [lastpitn, lastpitside]
         return self.board
 
+    #1st Rule of congkak
     def checkfree(self):
         print('####\ncheck free')
         # currentplayer = playerinfo['currentplayer']
@@ -249,6 +256,7 @@ class Game:
         else:
             return False
 
+    #2nd Rule of congkak
     def checksteal(self):
         #checking current board
         print('####\ncheck steal')
@@ -265,6 +273,7 @@ class Game:
         else:
             return False
 
+    #3rd Rule of congkak
     def checkskip(self):
         #checking current board
         print('####\ncheck skip')
@@ -282,7 +291,7 @@ class Game:
         else:
             return False
 
-        
+    #This function steals the opposing player's marbles    
     def stealfunc(self):
         # lastpitn = lastpit[0]
         print('stealing now')
@@ -296,6 +305,7 @@ class Game:
 
         return self.board
     
+    #This function saves the move made (Broken)
     def save(self):
         p2 = self.board[1][0]
         p1 = [i for i in reversed(self.board[0][0])]
@@ -324,11 +334,11 @@ class Game:
         
         movelist.close()
 
+    #Initializes play
     def play(self):
         # selectpit = int(input("Player {}'s go. {} turns remaining. \n Please select a pit to play".format(self.currentplayer,self.turns)))
 
         self.initialize_game()
-        skip = False
         skipturns  = 0
         self.currentplayer.switch()
         self.currentenemy.switch() 
@@ -436,7 +446,7 @@ class Game:
         else:
             print('Player {} Wins!'.format(self.winner.player))
         
-
+    #AI Functions WIP
         
     def max(self):
         return
@@ -447,7 +457,7 @@ class Game:
 
 
 def main():
-    g = Game()
+    g = Game(7)
     g.play()
 
 if __name__ == "__main__":
