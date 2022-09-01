@@ -1,5 +1,8 @@
 import time
 import copy
+import os
+
+from numpy import NaN
 from core_functions import plyer
 
 
@@ -17,8 +20,20 @@ class Game:
 
         b = [p1,p2]
         return b
+
     def initialize_game(self):
+        #initialize the board
         self.board = self.start(7)
+        self.gameturns = 0
+        self.lastmove = 0
+        self.lastpit = 0
+
+        #statuses
+        self.free = False
+        self.skip = False
+        self.skip = False
+
+        #initialize player data
         self.turns = 0
         self.currentplayer = plyer(0)
         self.currentenemy = plyer(1)
@@ -26,6 +41,30 @@ class Game:
         self.game_status = True
         self.options = {'verbose':0}
 
+
+
+        p2 = self.board[1][0]
+        p1 = [i for i in reversed(self.board[0][0])]
+        p1home = self.board[0][1]
+        p2home = self.board[1][1]
+
+        if 'movelist.txt' in os.getcwd():
+            os.remove('movelist.txt') 
+        movelist = open('movelist.txt','w')
+        movelist.write('gameturns:' + str(self.gameturns) + '\n')
+        movelist.write('Current player:{}\n'.format(self.currentplayer.player))
+        movelist.write(str(p2home)+ '\n')
+        movelist.write(str(p2)+ '\n')
+        movelist.write(str(p1)+ '\n')
+        movelist.write(str(p1home)+ '\n')
+        movelist.write('\n')
+        movelist.close()
+
+
+        
+        
+        
+        
 
     def drawboard(self):
         p2 = self.board[1][0]
@@ -48,12 +87,26 @@ class Game:
         else:
             return True
     
-    def checkend(self):
+    def checkemptyside(self):
+        playern = 0
+        for i in range(len(self.board[0][0])):
+            playern += self.board[self.currentplayer.player][0][i]
+        if playern == 0 :
+            return True
+        else:
+            return False
+
+    def check_game_status(self):
     #goes through board and counts the total marbles in play
+    #returns True if it is still live
         n = 0
-        for p in self.board:
-            for i in p[0]:
-                n += i
+        p1 = self.board[0][0]
+        p2 = self.board[1][0]
+        for i in range(len(p1)):
+            n+= p1[i]
+            n+= p2[i]
+            print(n,i)
+
         if n == 0:
             if self.board[0][1]>self.board[1][1]:
                 winner = plyer(0)
@@ -62,10 +115,10 @@ class Game:
             else:
                 winner = None
 
-            return True, winner
+            return False, winner
 
         else:            
-            return False, None
+            return True, None
 
     def score(self,points):
         self.board[self.currentplayer.player][1] += points
@@ -77,8 +130,9 @@ class Game:
         except:
             verbose = 0
 
-        currentplayer = self.currentplayer.player
-        player = self.side.player
+        #setting the side of the board to the current player
+        self.side.player = self.currentplayer.player
+        
 
 
         # note that pit for the first overflow loop/ only underflow will have
@@ -153,8 +207,8 @@ class Game:
                         print(self.board)
                 except:
                     break
-        lastpitn = pit+i
-        lastpitside = self.side.player
+        self.lastpit = pit+i
+        
 
         # print('lastpitn',lastpitn)
         # print('lastn',n)
@@ -174,11 +228,12 @@ class Game:
         else:
             pass
         
+        self.lastpitside = self.side.player
+        print('lastpitinfo:{},{}'.format(self.lastpit,self.lastpitside))
+        # lastpit = [lastpitn, lastpitside]
+        return self.board
 
-        lastpit = [lastpitn, lastpitside]
-        return self.board,lastpit
-
-    def checkfree(self,lastpit):
+    def checkfree(self):
         print('####\ncheck free')
         # currentplayer = playerinfo['currentplayer']
         # currentenemy = playerinfo['currentenemy']
@@ -186,62 +241,89 @@ class Game:
         # enemy = playerinfo['enemy']
 
         
-        lastpitn = lastpit[0]
-        if lastpitn == len(self.board[0][0]):
+        # lastpitn = lastpit[0]
+        if self.lastpit == len(self.board[0][0]):
             print('free occured')
             return True
 
         else:
             return False
 
-    def checksteal(self, lastpit):
+    def checksteal(self):
         #checking current board
         print('####\ncheck steal')
 
-        lastpitn = lastpit[0]
+        # lastpitn = lastpit[0]
         #sets enemy board to 0 and transfers amt to player score
-        if lastpitn == len(self.board[0][0]):
+        if self.lastpit == len(self.board[0][0]):
             return False
 
-        if self.board[self.currentplayer.player][0][lastpitn] == 1:
+        if self.board[self.currentplayer.player][0][self.lastpit] == 1:
             print('steal occured')
             return True
 
         else:
             return False
 
-    def checkskip(self, lastpit):
+    def checkskip(self):
         #checking current board
         print('####\ncheck skip')
 
-        lastpitn = lastpit[0]
-        lastpitside = lastpit[1]
+        # lastpitn = lastpit[0]
+        # lastpitside = lastpit[1]
 
-        if lastpitn == len(self.board[0][0]):
+        if self.lastpit == len(self.board[0][0]):
             return False
 
-        if self.board[lastpitside][0][lastpitn] == 1:
+        
+        if self.board[self.currentenemy.player][0][len(self.board[0][0]) - self.lastpit - 1] == 1:
             print('skip occured')
             return True
         else:
             return False
 
         
-    def stealfunc(self,lastpit):
-        lastpitn = lastpit[0]
-        
-
+    def stealfunc(self):
+        # lastpitn = lastpit[0]
         print('stealing now')
-        amt = self.board[self.currentenemy.player][0][len(self.board[0][0])-lastpitn-1] 
+        amt = self.board[self.currentenemy.player][0][len(self.board[0][0])-self.lastpit-1] 
         #clearing pit
         print('amount stolen',amt)
-        self.board[self.currentenemy.player][0][len(self.board[0][0])-lastpitn-1] = 0
+        self.board[self.currentenemy.player][0][len(self.board[0][0])-self.lastpit-1] = 0
         print('before steal',self.board[self.currentplayer.player][1])
         self.board[self.currentplayer.player][1] += amt
         print('after steal',self.board[self.currentplayer.player][1])
 
         return self.board
-            
+    
+    def save(self):
+        p2 = self.board[1][0]
+        p1 = [i for i in reversed(self.board[0][0])]
+        p1home = self.board[0][1]
+        p2home = self.board[1][1]
+        
+
+        movelist = open('movelist.txt','a')
+        movelist.write('\n\n')
+        movelist.write('gameturns:' + str(self.gameturns) + '\n')
+        movelist.write('move:' + str(self.lastmove) + '\n')
+        movelist.write('Current player:{}\n'.format(self.currentplayer.player))
+        movelist.write(str(p2home)+ '\n')
+        movelist.write(str(p2)+ '\n')
+        movelist.write(str(p1)+ '\n')
+        movelist.write(str(p1home)+ '\n')
+        movelist.write('\n')
+
+        movelist.write('checks')
+        movelist.write('free: {}'.format(self.free))
+        movelist.write('steal: {}'.format(self.steal))
+        movelist.write('skip: {}'.format(self.skip))
+        
+
+
+        
+        movelist.close()
+
     def play(self):
         # selectpit = int(input("Player {}'s go. {} turns remaining. \n Please select a pit to play".format(self.currentplayer,self.turns)))
 
@@ -253,6 +335,8 @@ class Game:
 
         #number of turns for a player
         while self.game_status is True:
+            self.gameturns += 1
+            
             self.turns += 1
             self.turns = skipturns + self.turns #adds turns from skip
             print("Start of a new player's turn",self.turns)
@@ -261,13 +345,13 @@ class Game:
         
             while self.turns > 0:
                 #resetting the status
-                skip = False
+                self.skip = False
                 skipturns = 0
-                steal = False
-                free = False
+                self.steal = False
+                self.free = False
                 
                     
-                oldboard = copy.deepcopy(self.board)              
+                # oldboard = copy.deepcopy(self.board)              
 
                 #player go
                 print('\n\n#############################')
@@ -282,17 +366,19 @@ class Game:
                 #pit selection
                 selectpit = int(input('select pit (0-6)'))
                 legal = self.isvalid(selectpit)
+                self.lastmove = selectpit
                 print(legal)
 
                 while legal is False:
                     self.drawboard()
                     selectpit = int(input('invalid pit, please select pit (0-6)'))
+                    self.lastmove = selectpit
                     legal = self.isvalid(selectpit)
 
                 
                 
                 #making a move
-                self.board,lastpit = self.playermove(selectpit,options=self.options)
+                self.board = self.playermove(selectpit,options=self.options)
 
                 #checks
                 print('#############\nchecks initiated')
@@ -300,22 +386,26 @@ class Game:
                 ##checking if lastpit has n == 1
 
                 #checking for free go. 
-                free = self.checkfree(lastpit)
-                if free is True:
+                self.free = self.checkfree()
+                print('lastpitside')
+                print(self.board[self.lastpitside][0])
+
+                if self.free is True:
                     self.turns += 1
                 
                 #checking for steal or skip, this only occurs when lastpitn ==1
                 
-                elif self.board[lastpit[1]][0][lastpit[0]] == 1:
+
+                elif self.board[self.lastpitside][0][self.lastpit] == 1:
                     print('lastpit has 1 marble, checking for steal and skip')
                     #checking for steal
-                    steal = self.checksteal(lastpit)
-                    if steal is True:
-                        self.board = self.stealfunc(lastpit)
+                    self.steal = self.checksteal()
+                    if self.steal is True:
+                        self.board = self.stealfunc()
 
                     # checking for skip
-                    skip = self.checkskip(lastpit)
-                    if skip is True:
+                    self.skip = self.checkskip()
+                    if self.skip is True:
                         skipturns = 1
 
                 else:
@@ -326,26 +416,28 @@ class Game:
                 print('currentplayer',self.currentplayer.player)
                 print('currentenemy',self.currentenemy.player)
                 
-                
 
-                #check if game has ended
-                win,winner = self.checkend()
-                if win == True:
-                    self.game = False
-                    
-                    print('game has ended')
-                    if win is None:
-                        print('Game Draw')
-                    else:
-                        print('Player {} wins'.format(winner))
-                
-
-
-
-                # print('newboard\n',board)
+                self.save()
+        
                 self.drawboard()
                 
-                self.turns -= 1
+                #checking whether the current player side is empty
+                emptyside = self.checkemptyside()
+                if emptyside is True:
+                    self.turns = 0
+                else:    
+                    self.turns -= 1
+            self.game_status, self.winner = self.check_game_status()
+            print(self.game_status)
+        
+        print('Game ended')
+        if self.winner is None:
+            print('tie!')
+        else:
+            print('Player {} Wins!'.format(self.winner.player))
+        
+
+        
     def max(self):
         return
 
