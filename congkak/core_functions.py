@@ -1,4 +1,3 @@
-import copy
 #this is the board. Layout is:
 #       board2  (enemy)
 #       board1  (me)

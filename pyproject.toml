@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "congkak"
+version = "0.1.0"
+description = "A python implementation of the Malaysian traditional board game, Congkak"
+authors = ["shaun <sefho98@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.26.2"
+
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+mypy = "^1.7.1"
+ruff = "^0.1.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

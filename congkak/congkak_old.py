@@ -8,8 +8,6 @@
 #functions
 
 # initiates new board, with 7 in each pit, 0 in home
-from decimal import Overflow
-from typing import overload
 
 
 def start(n,m):
