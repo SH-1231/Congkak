@@ -1,0 +1,6 @@
+__all__ = [
+    "PITS_PER_SIDE",
+    "MARBLES_PER_PIT"
+]
+PITS_PER_SIDE = 7
+MARBLES_PER_PIT = 7

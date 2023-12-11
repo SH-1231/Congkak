@@ -6,13 +6,17 @@ import enum
 from congkak.constants import PITS_PER_SIDE
 
 enum.unique
-class Player(enum.Enum):
+class PlayerNumber(enum.Enum):
     ONE = enum.auto()
     TWO = enum.auto()
+@dataclasses.dataclass
+class Player:
+    number: PlayerNumber
+    score: int
 
 @dataclasses.dataclass(frozen=True)
 class PlayerMove:
-    player: Player
+    player_number: Player
     pit_number: int
 
     def __post_init__(self):
@@ -24,8 +28,16 @@ class PlayerMove:
 @dataclasses.dataclass(frozen=True)
 class BoardState:
     active: bool
-    turn: Player
+    turn: PlayerNumber
+    player_one: Player
+    player_two: Player
     side_one: npt.NDArray[np.int32]
     side_two: npt.NDArray[np.int32]
-    score_one: int
-    score_two: int
+
+@dataclasses.dataclass()
+class GameData:
+    concluded: bool
+    rounds: int
+    player_one: Player
+    player_two: Player
+    
