@@ -10,11 +10,11 @@ def board_state_example()->BoardState:
         turn=PlayerNumber.ONE,
         player_one=Player(
             number=PlayerNumber.ONE,
-            score=1
+            score=0
         ),
         player_two=Player(
             number=PlayerNumber.TWO,
-            score=1
+            score=0
         ),
         side_one=np.array([0,1,0,0,0,0,1]),
         side_two=np.array([0,0,0,0,0,0,1])

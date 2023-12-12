@@ -45,7 +45,20 @@ def check_winner(
         margin=abs(margin)
     )
 
-def side_from_player(
+def active_player_side(
+    board_state: BoardState,
+    player_number: PlayerNumber,
+)->npt.NDArray[np.int32]:
+    match player_number:
+        case PlayerNumber.ONE:
+            return board_state.side_one
+        case PlayerNumber.TWO:
+            return board_state.side_two
+        case _:
+            raise ValueError(
+                "Only 2 sides"
+            )
+def opponent_player_side(
     board_state: BoardState,
     player_number: PlayerNumber,
 )->npt.NDArray[np.int32]:
