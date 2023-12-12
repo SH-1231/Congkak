@@ -38,16 +38,14 @@ jobs:
         uses: snok/install-poetry@v1
       - name: Install dependencies
         run: poetry install --with=dev
+      - name: Initialising shell within virtualenv
+        run: poetry shell
       - name: Lint with Ruff
-        # continue-on-error: true
         run: ruff check .
       - name: Lint with Ruff
-        continue-on-error: true
         run: ruff format .
       - name: Type check with mypy
-        continue-on-error: true
         run: mypy .
       - name: Test with pytest
-        continue-on-error: true
         run: pytest .
 
