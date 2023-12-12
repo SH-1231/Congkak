@@ -36,20 +36,18 @@ jobs:
           restore-keys: ${{ matrix.platform }}
       - name: Install Poetry
         uses: snok/install-poetry@v1
-      - name: Display Poetry version
-        run: poetry --version
-      # - name: Install dependencies
-      #   run: python -m poetry install --with=dev
-      # - name: Lint with Ruff
-      #   continue-on-error: true
-      #   run: ruff check .
-      # - name: Lint with Ruff
-      #   continue-on-error: true
-      #   run: ruff format .
-      # - name: Type check with mypy
-      #   continue-on-error: true
-      #   run: mypy .
-      # - name: Test with pytest
-      #   continue-on-error: true
-      #   run: pytest .
+      - name: Install dependencies
+        run: poetry install --with=dev
+      - name: Lint with Ruff
+        continue-on-error: true
+        run: ruff check .
+      - name: Lint with Ruff
+        continue-on-error: true
+        run: ruff format .
+      - name: Type check with mypy
+        continue-on-error: true
+        run: mypy .
+      - name: Test with pytest
+        continue-on-error: true
+        run: pytest .
 
