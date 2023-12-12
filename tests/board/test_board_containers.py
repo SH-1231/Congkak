@@ -17,16 +17,16 @@ def test_board_state()-> None:
         turn=PlayerNumber.ONE,
         player_one=Player(
             number=PlayerNumber.ONE,
-            score=0
+            score=0,
+            side=np.random.rand(PITS_PER_SIDE),
         ),
         player_two=Player(
             number=PlayerNumber.TWO,
-            score=0
+            score=0,
+            side=np.random.rand(PITS_PER_SIDE),
         ),
-        side_one=np.random.rand(PITS_PER_SIDE),
-        side_two=np.random.rand(PITS_PER_SIDE),
     )
 
-    assert board_state.side_one.shape == board_state.side_two.shape
+    assert board_state.player_one.side.shape == board_state.player_two.side.shape
     assert board_state.player_one.score >= 0
     assert board_state.player_two.score >= 0

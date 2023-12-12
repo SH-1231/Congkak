@@ -17,15 +17,13 @@ def end_game(
         turn=None,
         player_one=board_state.player_one,
         player_two=board_state.player_two,
-        side_one=board_state.side_one,
-        side_two=board_state.side_two
     )
 
 def check_victory(
     board_state: BoardState
 )->bool:
     # game ends when no marbles in pits remaining.
-    game_over = np.count_nonzero(board_state.side_one + board_state.side_two) == 0
+    game_over = np.count_nonzero(board_state.player_one.side + board_state.player_two.side) == 0
     return game_over
 
 def check_winner(
@@ -45,29 +43,13 @@ def check_winner(
         margin=abs(margin)
     )
 
-def active_player_side(
-    board_state: BoardState,
-    player_number: PlayerNumber,
-)->npt.NDArray[np.int32]:
-    match player_number:
-        case PlayerNumber.ONE:
-            return board_state.side_one
-        case PlayerNumber.TWO:
-            return board_state.side_two
+def active_player(
+    board_state: BoardState
+)-> Player:
+    match board_state.turn:
+        case board_state.player_one.number:
+            return board_state.player_one
+        case board_state.player_two.number:
+            return board_state.player_two
         case _:
-            raise ValueError(
-                "Only 2 sides"
-            )
-def opponent_player_side(
-    board_state: BoardState,
-    player_number: PlayerNumber,
-)->npt.NDArray[np.int32]:
-    match player_number:
-        case PlayerNumber.ONE:
-            return board_state.side_one
-        case PlayerNumber.TWO:
-            return board_state.side_two
-        case _:
-            raise ValueError(
-                "Only 2 sides"
-            )
+            raise ValueError("Only 2 players")
