@@ -1,4 +1,4 @@
-from congkak.board.transforms import start_game, player_move
+from congkak.board.transforms import start_game
 from congkak.board.containers import BoardState
 import numpy as np
 

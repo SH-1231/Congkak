@@ -18,6 +18,17 @@ def start_game()->BoardState:
         side_two=np.zeros(PITS_PER_SIDE),
         side_one=np.zeros(PITS_PER_SIDE)
     )
+def end_game(
+    board_state: BoardState
+)->BoardState:
+    return BoardState(
+        active=False,
+        turn=None,
+        player_one=board_state.player_one,
+        player_two=board_state.player_two,
+        side_one=board_state.side_one,
+        side_two=board_state.side_two
+    )
 
 def check_victory(
     board_state: BoardState

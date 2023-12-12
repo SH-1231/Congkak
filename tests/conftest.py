@@ -11,8 +11,8 @@ def board_state_example()->BoardState:
             number=PlayerNumber.ONE,
             score=1
         ),
-        player_one=Player(
-            number=PlayerNumber.ONE,
+        player_two=Player(
+            number=PlayerNumber.TWO,
             score=1
         ),
         side_one=np.array([0,0,0,0,0,0,1]),
@@ -29,8 +29,8 @@ def extra_turn_board_state_example()->BoardState:
             number=PlayerNumber.ONE,
             score=1
         ),
-        player_one=Player(
-            number=PlayerNumber.ONE,
+        player_two=Player(
+            number=PlayerNumber.TWO,
             score=1
         ),
         side_one=np.array([0,0,0,0,0,0,1]),
@@ -47,8 +47,8 @@ def steal_board_state_example()->BoardState:
             number=PlayerNumber.ONE,
             score=1
         ),
-        player_one=Player(
-            number=PlayerNumber.ONE,
+        player_two=Player(
+            number=PlayerNumber.TWO,
             score=1
         ),
         side_one=np.array([0,0,0,0,0,0,0]),
@@ -65,8 +65,8 @@ def lose_go_board_state_example()->BoardState:
             number=PlayerNumber.ONE,
             score=1
         ),
-        player_one=Player(
-            number=PlayerNumber.ONE,
+        player_two=Player(
+            number=PlayerNumber.TWO,
             score=1
         ),
         side_one=np.array([0,0,0,0,0,0,0]),

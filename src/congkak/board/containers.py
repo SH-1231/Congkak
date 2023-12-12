@@ -3,7 +3,7 @@ import numpy as np
 import numpy.typing as npt
 import enum
 
-from congkak.constants import PITS_PER_SIDE
+from congkak.board.constants import PITS_PER_SIDE
 
 enum.unique
 class PlayerNumber(enum.Enum):
