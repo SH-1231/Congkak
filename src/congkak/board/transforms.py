@@ -2,6 +2,7 @@ from congkak.board.containers import BoardState, PlayerNumber, Player, GameStati
 from congkak.board.constants import PITS_PER_SIDE, MARBLES_PER_PIT
 
 import numpy as np
+import numpy.typing as npt
 
 def start_game()->BoardState:
     return BoardState(
@@ -53,3 +54,17 @@ def check_winner(
         winner=winner,
         margin=abs(margin)
     )
+
+def side_from_player(
+    board_state: BoardState,
+    player_number: PlayerNumber,
+)->npt.NDArray[np.int32]:
+    match player_number:
+        case PlayerNumber.ONE:
+            return board_state.side_one
+        case PlayerNumber.TWO:
+            return board_state.side_two
+        case _:
+            raise ValueError(
+                "Only 2 sides"
+            )

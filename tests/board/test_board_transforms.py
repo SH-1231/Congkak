@@ -1,4 +1,4 @@
-from congkak.board.transforms import start_game, end_game, check_victory, check_winner
+from congkak.board.transforms import start_game, end_game, check_victory, check_winner, side_from_player
 from congkak.board.containers import BoardState, Player, PlayerNumber
 import numpy as np
 
@@ -36,3 +36,9 @@ def test_check_winner(
     assert player_one_win.margin > 0
     assert player_two_win.winner.number == PlayerNumber.TWO
     assert player_two_win.margin > 0
+
+def test_side_from_player_move(
+    board_state_example: BoardState,
+)->None:
+    assert np.all(side_from_player(board_state_example, PlayerNumber.ONE) == board_state_example.side_one)
+    assert np.all(side_from_player(board_state_example, PlayerNumber.TWO) == board_state_example.side_two)

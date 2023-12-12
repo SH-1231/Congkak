@@ -14,7 +14,7 @@ class PlayerMove:
                 f"Pit selected ({self.pit_number}) is not within max number of pits: {PITS_PER_SIDE}"
             )
 
-class MoveCondition(enum.StrEnum):
+class MoveValidity(enum.StrEnum):
     VALID = f"Valide Move Selected"
-    PLAYER = f"Invalide Player Moving"
+    PLAYER = f"Invalid Player Moving"
     PIT = f"Invalid Pit Selected"
