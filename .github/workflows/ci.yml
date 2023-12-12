@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: poetry install --with=dev
       - name: Lint with Ruff
-        continue-on-error: true
+        # continue-on-error: true
         run: ruff check .
       - name: Lint with Ruff
         continue-on-error: true
