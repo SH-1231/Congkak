@@ -1,5 +1,5 @@
-from congkak.board.transforms import start_game, end_game, check_victory
-from congkak.board.containers import BoardState
+from congkak.board.transforms import start_game, end_game, check_victory, check_winner
+from congkak.board.containers import BoardState, Player, PlayerNumber
 import numpy as np
 
 def test_start_game()->None:
@@ -24,3 +24,15 @@ def test_check_victory(
     game_ended_true = check_victory(board_state_endgame_example)
     assert game_ended_false is False
     assert game_ended_true is True
+
+def test_check_winner(
+    player_one_win_board_state: BoardState,
+    player_two_win_board_state: BoardState
+)->None:
+    player_one_win = check_winner(player_one_win_board_state)
+    player_two_win = check_winner(player_two_win_board_state)
+
+    assert player_one_win.winner.number == PlayerNumber.ONE
+    assert player_one_win.margin > 0
+    assert player_two_win.winner.number == PlayerNumber.TWO
+    assert player_two_win.margin > 0

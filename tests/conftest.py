@@ -38,6 +38,39 @@ def board_state_endgame_example()->BoardState:
     )
 
 @pytest.fixture
+def player_one_win_board_state():
+    return BoardState(
+        active=False,
+        turn=None,
+        player_one=Player(
+            number=PlayerNumber.ONE,
+            score=1
+        ),
+        player_two=Player(
+            number=PlayerNumber.TWO,
+            score=0
+        ),
+        side_one=np.array([0,0,0,0,0,0,0]),
+        side_two=np.array([0,0,0,0,0,0,0])
+    )
+
+@pytest.fixture
+def player_two_win_board_state():
+    return BoardState(
+        active=False,
+        turn=None,
+        player_one=Player(
+            number=PlayerNumber.ONE,
+            score=0
+        ),
+        player_two=Player(
+            number=PlayerNumber.TWO,
+            score=1
+        ),
+        side_one=np.array([0,0,0,0,0,0,0]),
+        side_two=np.array([0,0,0,0,0,0,0])
+    )
+@pytest.fixture
 def extra_turn_board_state_example()->BoardState:
     return BoardState(
         active=True,

@@ -1,4 +1,4 @@
-from congkak.board.containers import BoardState, PlayerNumber, PlayerMove, Player
+from congkak.board.containers import BoardState, PlayerNumber, Player, GameStatistics
 from congkak.board.constants import PITS_PER_SIDE, MARBLES_PER_PIT
 
 import numpy as np
@@ -36,3 +36,20 @@ def check_victory(
     # game ends when no marbles in pits remaining.
     game_over = np.count_nonzero(board_state.side_one + board_state.side_two) == 0
     return game_over
+
+def check_winner(
+    board_state: BoardState
+)->GameStatistics:
+
+    margin = board_state.player_one.score - board_state.player_two.score
+    if margin > 0:
+        winner = board_state.player_one
+    elif margin < 0:
+        winner = board_state.player_two
+    else:
+        winner = None
+
+    return GameStatistics(
+        winner=winner,
+        margin=abs(margin)
+    )

@@ -14,21 +14,11 @@ class Player:
     number: PlayerNumber
     score: int
 
-@dataclasses.dataclass(frozen=True)
-class PlayerMove:
-    player_number: Player
-    pit_number: int
-
-    def __post_init__(self):
-        if self.pit_number> PITS_PER_SIDE:
-            raise ValueError(
-                f"Pit selected ({self.pit_number}) is not within max number of pits: {PITS_PER_SIDE}"
-            )
 
 @dataclasses.dataclass(frozen=True)
 class BoardState:
     active: bool
-    turn: PlayerNumber
+    turn: PlayerNumber | None
     player_one: Player
     player_two: Player
     side_one: npt.NDArray[np.int32]
@@ -41,3 +31,7 @@ class GameData:
     player_one: Player
     player_two: Player
     
+@dataclasses.dataclass
+class GameStatistics:
+    winner: Player | None
+    margin: int
