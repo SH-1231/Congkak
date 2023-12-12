@@ -20,6 +20,14 @@ jobs:
           python-version: "3.11"
       - name: Install Poetry
         uses: snok/install-poetry@v1
+      - name: Cache Poetry virtualenv
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: ~/.virtualenvs
+          key: poetry-$
+          restore-keys: |
+            poetry-$
       - name: Install dependencies
         run: python -m poetry install --with=dev
       - name: Lint with Ruff
