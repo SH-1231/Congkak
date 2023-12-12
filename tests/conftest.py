@@ -16,7 +16,7 @@ def board_state_example()->BoardState:
             number=PlayerNumber.TWO,
             score=1
         ),
-        side_one=np.array([0,0,0,0,0,0,1]),
+        side_one=np.array([0,1,0,0,0,0,1]),
         side_two=np.array([0,0,0,0,0,0,1])
     )
 
