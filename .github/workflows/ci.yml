@@ -15,11 +15,11 @@ jobs:
         shell: bash -el {0}
     steps:
       - uses: actions/checkout@v4
-      - uses: mamba-org/setup-micromamba@v1
+      - uses: actions/setup-python@v4
         with:
-          environment-file: conda-lock.yml
-          environment-name: aia-tool-craft
-          cache-environment: true
+          python-version: "3.11"
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
       - name: Install dependencies
         run: python -m poetry install --with=dev
       - name: Lint with Ruff
