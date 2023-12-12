@@ -35,3 +35,12 @@ class GameData:
 class GameStatistics:
     winner: Player | None
     margin: int
+
+@enum.unique
+class CustomGameScenarios(enum.Enum):
+    NORMAL= enum.auto()
+    MOVE= enum.auto()
+    FREE_GO= enum.auto()
+    STEAL= enum.auto()
+    LOSE_GO= enum.auto()
+    SCENARIO_1= enum.auto()

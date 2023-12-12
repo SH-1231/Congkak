@@ -1,6 +1,6 @@
 import numpy as np
 
-from congkak.board.containers import Player, BoardState
+from congkak.board.containers import BoardState
 from congkak.moves.containers import PlayerMove, MoveValidity
 from congkak.board.transforms import side_from_player
 
