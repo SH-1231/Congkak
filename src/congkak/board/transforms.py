@@ -1,12 +1,12 @@
-from congkak.board.containers import BoardState, PlayerNumber, Player, GameStatistics, CustomGameScenarios
+from congkak.board.containers import BoardState, PlayerNumber, Player, GameStatistics
 from congkak.board.constants import PITS_PER_SIDE, MARBLES_PER_PIT
-from congkak.game.custom_scenarios import CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING
+from congkak.game.custom_scenarios import CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING, CustomGameScenario
 
 import numpy as np
 import numpy.typing as npt
 
 def start_game(
-    custom_game_scenario: int = CustomGameScenarios.NORMAL
+    custom_game_scenario: int = CustomGameScenario.NORMAL
 )->BoardState:
     return CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING[custom_game_scenario]
 def end_game(
