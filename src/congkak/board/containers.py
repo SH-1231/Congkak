@@ -11,7 +11,7 @@ class PlayerNumber(enum.Enum):
     TWO = enum.auto()
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class Player:
     number: PlayerNumber
     score: int
