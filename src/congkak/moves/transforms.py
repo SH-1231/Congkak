@@ -60,7 +60,7 @@ def move(
     spaces_to_end = PITS_PER_SIDE - start_pit
     overflow = initial_number - spaces_to_end
 
-    while overflow >= 0:
+    while overflow > 0:
         side_enum, side_player = next(board_sides)
         if side_enum == BoardPerspective.PLAYER:
             score += 1
@@ -81,11 +81,18 @@ def move(
             side=side_player,
         )
 
+    # setting up next side of the board
     side_enum, side_player = next(board_sides)
     additional = np.zeros(PITS_PER_SIDE, dtype=np.int32)
-    end_pit = PITS_PER_SIDE - 1 if overflow > 0 else start_pit + initial_number
-    additional[start_pit:end_pit] = 1
+
+    # this is the pit where last marble is dropped
+    end_pit = start_pit + initial_number - 1
+    end_pit_marbles = side_player[end_pit]
+
+    # adding in marbles
+    additional[start_pit : end_pit + 1] = 1
     side_player += additional
+
     mapping[side_enum] = Player(
         number=mapping[side_enum].number,
         score=initial_score_mapping[side_enum],
@@ -95,17 +102,27 @@ def move(
     # adding scores from round
     for enum_n, player_n in mapping.items():
         if player_n.number == player.number:
-            updated_player_n = add_score(player_n.number, score, player_n)
+            updated_player_n = add_score(score, player_n)
         else:
             updated_player_n = player_n
         mapping[enum_n] = updated_player_n
-    move_case = check_move_case(overflow, side_enum)
+
+    # checking special conditions on turn end
+    move_case = check_move_case(
+        overflow=overflow, player_side=side_enum, end_pit_marbles=end_pit_marbles
+    )
     # setting turn to appropriate
     match move_case:
         case MoveCase.NORMAL:
             next_turn = opponent.number
         case MoveCase.FREE:
             next_turn = player.number
+        case MoveCase.STEAL:
+            next_turn = opponent.number
+            mapping = steal(
+                mapping=mapping,
+                player_pit_number=end_pit,
+            )
 
     # updating player information
     if player.number == PlayerNumber.ONE:
@@ -121,25 +138,42 @@ def move(
 
 
 def add_score(
-    player_number: PlayerNumber,
     score: int,
     player: Player,
 ) -> Player:
     return Player(number=player.number, score=player.score + score, side=player.side)
 
 
-def check_move_case(overflow: int, player_side: BoardPerspective) -> MoveCase:
-    # free condition is turn ended exactly
-    # before start of opponents pit,
-    # which is the score pit
+def check_move_case(
+    overflow: int, player_side: BoardPerspective, end_pit_marbles: int
+) -> MoveCase:
+    # free condition: turn ends exactly before start of opponents pit (score pit)
     if (overflow == -PITS_PER_SIDE) and (player_side == BoardPerspective.OPPONENT):
         return MoveCase.FREE
+    # steal condition: turn ends on empty pit
+    if (end_pit_marbles == 0) and (player_side == BoardPerspective.PLAYER):
+        return MoveCase.STEAL
     else:
         return MoveCase.NORMAL
 
 
-# def steal() -> BoardState:
-#     pass
+def steal(
+    mapping: dict[BoardPerspective, Player],
+    player_pit_number: int,
+) -> dict[BoardPerspective, Player]:
+    player = mapping[BoardPerspective.PLAYER]
+    opponent = mapping[BoardPerspective.OPPONENT]
+    opponent_pit_number = PITS_PER_SIDE - 1 - player_pit_number
+    stolen_marbles = opponent.side[opponent_pit_number]
+    opponent.side[opponent_pit_number] = 0
+
+    mapping[BoardPerspective.PLAYER] = Player(
+        number=player.number, score=player.score + stolen_marbles, side=player.side
+    )
+    mapping[BoardPerspective.OPPONENT] = Player(
+        number=opponent.number, score=opponent.score, side=opponent.side
+    )
+    return mapping
 
 
 # def free() -> BoardState:
