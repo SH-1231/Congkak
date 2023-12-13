@@ -13,7 +13,7 @@ class PlayerMove:
     def __post_init__(self):
         if self.pit_number > PITS_PER_SIDE - 1:
             raise ValueError(
-                f"Pit selected ({self.pit_number}) is not within max number of pits: {PITS_PER_SIDE}"
+                f"Pit selected ({self.pit_number}) is not within max number of pits: {PITS_PER_SIDE}"  # noqa: E501
             )
 
 

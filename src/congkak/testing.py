@@ -1,5 +1,6 @@
-import typing
 import dataclasses
+import typing
+
 import numpy as np
 
 

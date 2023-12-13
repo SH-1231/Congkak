@@ -1,7 +1,9 @@
-from congkak.board.containers import BoardState, PlayerNumber, Player
-from congkak.board.constants import PITS_PER_SIDE
-import numpy as np
 import enum
+
+import numpy as np
+
+from congkak.board.constants import PITS_PER_SIDE
+from congkak.board.containers import BoardState, Player, PlayerNumber
 
 __all__ = ["CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING"]
 

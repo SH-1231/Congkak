@@ -1,6 +1,6 @@
-import pytest
 import numpy as np
-from congkak.board.containers import BoardState, PlayerNumber, Player
+import pytest
+from congkak.board.containers import BoardState, Player, PlayerNumber
 
 
 @pytest.fixture
