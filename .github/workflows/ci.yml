@@ -39,11 +39,11 @@ jobs:
       - name: Install dependencies
         run: poetry install --with=dev
       - name: Lint with Ruff
-        run: ruff check .
+        run: poetry run ruff check .
       - name: Lint with Ruff
-        run: ruff format .
+        run: poetry run ruff format .
       - name: Type check with mypy
-        run: mypy .
+        run: poetry run mypy .
       - name: Test with pytest
-        run: pytest .
+        run: poetry run pytest .
 
