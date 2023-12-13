@@ -16,6 +16,16 @@ pytest = "^7.4.3"
 mypy = "^1.7.1"
 ruff = "^0.1.7"
 
+[tool.ruff.lint]
+select = [
+    "B",
+    "E",
+    "F",
+    "I",
+    "SIM",
+    "UP",
+]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
