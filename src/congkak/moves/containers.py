@@ -3,6 +3,8 @@ import enum
 
 from congkak.board.constants import PITS_PER_SIDE
 from congkak.board.containers import Player
+
+
 @dataclasses.dataclass(frozen=True)
 class PlayerMove:
     player_number: Player
@@ -14,10 +16,12 @@ class PlayerMove:
                 f"Pit selected ({self.pit_number}) is not within max number of pits: {PITS_PER_SIDE}"
             )
 
+
 class MoveValidity(enum.StrEnum):
-    VALID = f"Valide Move Selected"
-    PLAYER = f"Invalid Player Moving"
-    PIT = f"Invalid Pit Selected"
+    VALID = "Valide Move Selected"
+    PLAYER = "Invalid Player Moving"
+    PIT = "Invalid Pit Selected"
+
 
 @enum.unique
 class BoardPerspective(enum.Enum):

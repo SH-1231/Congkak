@@ -2,16 +2,16 @@ from congkak.board.containers import BoardState, PlayerNumber, Player
 from congkak.moves.containers import PlayerMove
 import numpy as np
 
-def test_player_move()->None:
-    player_move = PlayerMove(
-        player_number=PlayerNumber.ONE,
-        pit_number=0
-    )
+
+def test_player_move() -> None:
+    player_move = PlayerMove(player_number=PlayerNumber.ONE, pit_number=0)
     assert player_move.pit_number == 0
     assert player_move.player_number == PlayerNumber.ONE
 
-def test_board_state()-> None:
+
+def test_board_state() -> None:
     from congkak.board.constants import PITS_PER_SIDE
+
     board_state = BoardState(
         active=True,
         turn=PlayerNumber.ONE,
