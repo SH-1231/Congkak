@@ -16,9 +16,9 @@ def run_congkak(
     board_state = start_game(custom_game_scenario=custom_game_scenario)
     game_history = [board_state]
     while board_state.active:
-        pit_number = int(input(
-            f"Player {board_state.turn}'s Go. Please select a pit (0-6):"
-        ))
+        pit_number = int(
+            input(f"Player {board_state.turn}'s Go. Please select a pit (0-6):")
+        )
         board_state = move(
             board_state=board_state,
             player_move=PlayerMove(

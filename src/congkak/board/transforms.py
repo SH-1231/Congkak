@@ -7,7 +7,9 @@ from congkak.game.custom_scenarios import (
 import numpy as np
 
 
-def start_game(custom_game_scenario: CustomGameScenario = CustomGameScenario.NORMAL) -> BoardState:
+def start_game(
+    custom_game_scenario: CustomGameScenario = CustomGameScenario.NORMAL,
+) -> BoardState:
     return CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING[custom_game_scenario]
 
 
