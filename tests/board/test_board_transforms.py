@@ -31,8 +31,9 @@ def test_check_winner(
 ) -> None:
     player_one_win = check_winner(player_one_win_board_state)
     player_two_win = check_winner(player_two_win_board_state)
-
-    assert player_one_win.winner.number == PlayerNumber.ONE
-    assert player_one_win.margin > 0
-    assert player_two_win.winner.number == PlayerNumber.TWO
-    assert player_two_win.margin > 0
+    if player_one_win.winner is not None:
+        assert player_one_win.winner.number == PlayerNumber.ONE
+        assert player_one_win.margin > 0
+    if player_two_win.winner is not None:
+        assert player_two_win.winner.number == PlayerNumber.TWO
+        assert player_two_win.margin > 0

@@ -37,7 +37,7 @@ def move(
     }
     score = 0
 
-    mapping: dict[int, Player] = {}
+    mapping: dict[BoardPerspective, Player] = {}
     board_sides = itertools.cycle(
         [
             (BoardPerspective.PLAYER, player.side),
@@ -113,13 +113,13 @@ def add_score(
     return Player(number=player.number, score=player.score + score, side=player.side)
 
 
-def steal() -> BoardState:
-    pass
+# def steal() -> BoardState:
+#     pass
 
 
-def free() -> BoardState:
-    pass
+# def free() -> BoardState:
+#     pass
 
 
-def miss() -> BoardState:
-    pass
+# def miss() -> BoardState:
+#     pass

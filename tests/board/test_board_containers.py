@@ -18,12 +18,12 @@ def test_board_state() -> None:
         player_one=Player(
             number=PlayerNumber.ONE,
             score=0,
-            side=np.random.rand(PITS_PER_SIDE),
+            side=np.random.randint(10, size=PITS_PER_SIDE),
         ),
         player_two=Player(
             number=PlayerNumber.TWO,
             score=0,
-            side=np.random.rand(PITS_PER_SIDE),
+            side=np.random.randint(10, size=PITS_PER_SIDE),
         ),
     )
 
