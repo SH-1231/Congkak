@@ -1,3 +1,5 @@
+import json
+
 import numpy as np
 import pytest
 from congkak.board.containers import BoardState, Player, PlayerNumber
@@ -15,6 +17,26 @@ def board_state_example() -> BoardState:
             number=PlayerNumber.TWO, score=0, side=np.array([0, 0, 0, 0, 0, 0, 1])
         ),
     )
+
+
+@pytest.fixture
+def board_state_example_json() -> str:
+    board_state = {
+        "active": True,
+        "turn": PlayerNumber.ONE,
+        "player_one": {
+            "number": PlayerNumber.ONE,
+            "score": 0,
+            "side": [0, 1, 0, 0, 0, 0, 1],
+        },
+        "player_two": {
+            "number": PlayerNumber.TWO,
+            "score": 0,
+            "side": [0, 0, 0, 0, 0, 0, 1],
+        },
+        "n_turns": 1,
+    }
+    return json.dumps(board_state, separators=(",", ":"))
 
 
 @pytest.fixture
