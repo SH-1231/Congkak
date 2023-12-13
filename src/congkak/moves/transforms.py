@@ -112,20 +112,29 @@ def move(
         overflow=overflow, player_side=side_enum, end_pit_marbles=end_pit_marbles
     )
     # setting turn to appropriate
+    turns_remaining = board_state.n_turns - 1
+    print(turns_remaining, move_case)
     extra_turns = 0
     match move_case:
         case MoveCase.NORMAL:
-            next_turn = opponent.number
+            next_turn = (
+                opponent.number
+                if turns_remaining == 0
+                else player.number
+                if turns_remaining == 0
+                else player.number
+            )
         case MoveCase.FREE:
             next_turn = player.number
         case MoveCase.STEAL:
-            next_turn = opponent.number
+            next_turn = opponent.number if turns_remaining == 0 else player.number
             mapping = steal(
                 mapping=mapping,
                 player_pit_number=end_pit,
             )
         case MoveCase.MISS:
             next_turn = opponent.number
+            turns_remaining += 1
             extra_turns = 1
 
     # updating player information
@@ -135,11 +144,11 @@ def move(
     else:
         player_one = mapping[BoardPerspective.OPPONENT]
         player_two = mapping[BoardPerspective.PLAYER]
-
+    print(next_turn, player.number)
     return BoardState(
         active=True,
         turn=next_turn,
-        n_turns=board_state.n_turns + extra_turns,
+        n_turns=turns_remaining + extra_turns,
         player_one=player_one,
         player_two=player_two,
     )
@@ -158,9 +167,10 @@ def check_move_case(
     # free condition: turn ends exactly before start of opponents pit (score pit)
     if (overflow == -PITS_PER_SIDE) and (player_side == BoardPerspective.OPPONENT):
         return MoveCase.FREE
-    # steal condition: turn ends on empty pit
+    # steal condition: turn ends on empty pit, player side
     if (end_pit_marbles == 0) and (player_side == BoardPerspective.PLAYER):
         return MoveCase.STEAL
+    # miss condition: turn ends on empty pit, opponent side
     if (end_pit_marbles == 0) and (player_side == BoardPerspective.OPPONENT):
         return MoveCase.MISS
     else:

@@ -107,15 +107,11 @@ def test_move_normal(
     player_move: PlayerMove,
     expected_board_state: BoardState,
 ) -> None:
-    new_board_state = move(board_state=initial_board_state, player_move=player_move)
+    board_state_1 = move(board_state=initial_board_state, player_move=player_move)
 
-    assert new_board_state.turn == expected_board_state.turn
-    assert np.all(
-        new_board_state.player_one.side == expected_board_state.player_one.side
-    )
-    assert np.all(
-        new_board_state.player_two.side == expected_board_state.player_two.side
-    )
+    assert board_state_1.turn == expected_board_state.turn
+    assert np.all(board_state_1.player_one.side == expected_board_state.player_one.side)
+    assert np.all(board_state_1.player_two.side == expected_board_state.player_two.side)
 
 
 @pytest.mark.parametrize(
@@ -283,17 +279,13 @@ def test_move_score(
     player_move: PlayerMove,
     expected_board_state: BoardState,
 ) -> None:
-    new_board_state = move(board_state=initial_board_state, player_move=player_move)
+    board_state_1 = move(board_state=initial_board_state, player_move=player_move)
 
-    assert new_board_state.turn == expected_board_state.turn
-    assert np.all(
-        new_board_state.player_one.side == expected_board_state.player_one.side
-    )
-    assert np.all(
-        new_board_state.player_two.side == expected_board_state.player_two.side
-    )
-    assert new_board_state.player_one.score == expected_board_state.player_one.score
-    assert new_board_state.player_two.score == expected_board_state.player_two.score
+    assert board_state_1.turn == expected_board_state.turn
+    assert np.all(board_state_1.player_one.side == expected_board_state.player_one.side)
+    assert np.all(board_state_1.player_two.side == expected_board_state.player_two.side)
+    assert board_state_1.player_one.score == expected_board_state.player_one.score
+    assert board_state_1.player_two.score == expected_board_state.player_two.score
 
 
 @pytest.mark.parametrize(
@@ -399,17 +391,13 @@ def test_move_free_go(
     player_move: PlayerMove,
     expected_board_state: BoardState,
 ) -> None:
-    new_board_state = move(board_state=initial_board_state, player_move=player_move)
+    board_state_1 = move(board_state=initial_board_state, player_move=player_move)
 
-    assert new_board_state.turn == expected_board_state.turn
-    assert np.all(
-        new_board_state.player_one.side == expected_board_state.player_one.side
-    )
-    assert np.all(
-        new_board_state.player_two.side == expected_board_state.player_two.side
-    )
-    assert new_board_state.player_one.score == expected_board_state.player_one.score
-    assert new_board_state.player_two.score == expected_board_state.player_two.score
+    assert board_state_1.turn == expected_board_state.turn
+    assert np.all(board_state_1.player_one.side == expected_board_state.player_one.side)
+    assert np.all(board_state_1.player_two.side == expected_board_state.player_two.side)
+    assert board_state_1.player_one.score == expected_board_state.player_one.score
+    assert board_state_1.player_two.score == expected_board_state.player_two.score
 
 
 @pytest.mark.parametrize(
@@ -438,6 +426,39 @@ def test_move_free_go(
                     number=PlayerNumber.ONE,
                     score=10,
                     side=np.array([0, 0, 0, 1, 0, 0, 0]),
+                ),
+                player_two=Player(
+                    number=PlayerNumber.TWO,
+                    score=0,
+                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
+                ),
+            ),
+        ),
+        (
+            BoardState(
+                active=True,
+                turn=PlayerNumber.ONE,
+                n_turns=2,
+                player_one=Player(
+                    number=PlayerNumber.ONE,
+                    score=0,
+                    side=np.array([0, 1, 0, 0, 0, 0, 0]),
+                ),
+                player_two=Player(
+                    number=PlayerNumber.TWO,
+                    score=0,
+                    side=np.array([0, 0, 0, 0, 10, 0, 0]),
+                ),
+            ),
+            PlayerMove(player_number=PlayerNumber.ONE, pit_number=1),
+            BoardState(
+                active=True,
+                turn=PlayerNumber.ONE,
+                n_turns=1,
+                player_one=Player(
+                    number=PlayerNumber.ONE,
+                    score=10,
+                    side=np.array([0, 0, 1, 0, 0, 0, 0]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
@@ -515,17 +536,13 @@ def test_move_steal(
     player_move: PlayerMove,
     expected_board_state: BoardState,
 ) -> None:
-    new_board_state = move(board_state=initial_board_state, player_move=player_move)
+    board_state_1 = move(board_state=initial_board_state, player_move=player_move)
 
-    assert new_board_state.turn == expected_board_state.turn
-    assert np.all(
-        new_board_state.player_one.side == expected_board_state.player_one.side
-    )
-    assert np.all(
-        new_board_state.player_two.side == expected_board_state.player_two.side
-    )
-    assert new_board_state.player_one.score == expected_board_state.player_one.score
-    assert new_board_state.player_two.score == expected_board_state.player_two.score
+    assert board_state_1.turn == expected_board_state.turn
+    assert np.all(board_state_1.player_one.side == expected_board_state.player_one.side)
+    assert np.all(board_state_1.player_two.side == expected_board_state.player_two.side)
+    assert board_state_1.player_one.score == expected_board_state.player_one.score
+    assert board_state_1.player_two.score == expected_board_state.player_two.score
 
 
 @pytest.mark.parametrize(
@@ -634,15 +651,57 @@ def test_move_miss(
     player_move: PlayerMove,
     expected_board_state: BoardState,
 ) -> None:
-    new_board_state = move(board_state=initial_board_state, player_move=player_move)
+    board_state_1 = move(board_state=initial_board_state, player_move=player_move)
 
-    assert new_board_state.turn == expected_board_state.turn
-    assert new_board_state.n_turns == expected_board_state.n_turns
+    assert board_state_1.turn == expected_board_state.turn
+    assert board_state_1.n_turns == expected_board_state.n_turns
+    assert np.all(board_state_1.player_one.side == expected_board_state.player_one.side)
+    assert np.all(board_state_1.player_two.side == expected_board_state.player_two.side)
+    assert board_state_1.player_one.score == expected_board_state.player_one.score
+    assert board_state_1.player_two.score == expected_board_state.player_two.score
+
+
+def test_move_extra_turns() -> None:
+    initial_board_state = BoardState(
+        active=True,
+        turn=PlayerNumber.ONE,
+        n_turns=2,
+        player_one=Player(
+            number=PlayerNumber.ONE,
+            score=0,
+            side=np.array([0, 0, 0, 0, 0, 1, 0]),
+        ),
+        player_two=Player(
+            number=PlayerNumber.TWO,
+            score=0,
+            side=np.array([0, 0, 0, 0, 0, 0, 0]),
+        ),
+    )
+    player_move = PlayerMove(player_number=PlayerNumber.ONE, pit_number=5)
+
+    board_state_1 = move(board_state=initial_board_state, player_move=player_move)
+    expected_board_state_1 = BoardState(
+        active=True,
+        turn=PlayerNumber.ONE,
+        n_turns=1,
+        player_one=Player(
+            number=PlayerNumber.ONE,
+            score=0,
+            side=np.array([0, 0, 0, 0, 0, 0, 1]),
+        ),
+        player_two=Player(
+            number=PlayerNumber.TWO,
+            score=0,
+            side=np.array([0, 0, 0, 0, 0, 0, 0]),
+        ),
+    )
+    assert board_state_1.turn == expected_board_state_1.turn
+    assert board_state_1.n_turns == expected_board_state_1.n_turns
     assert np.all(
-        new_board_state.player_one.side == expected_board_state.player_one.side
+        board_state_1.player_one.side == expected_board_state_1.player_one.side
     )
     assert np.all(
-        new_board_state.player_two.side == expected_board_state.player_two.side
+        board_state_1.player_two.side == expected_board_state_1.player_two.side
     )
-    assert new_board_state.player_one.score == expected_board_state.player_one.score
-    assert new_board_state.player_two.score == expected_board_state.player_two.score
+    assert board_state_1.player_one.score == expected_board_state_1.player_one.score
+    assert board_state_1.player_two.score == expected_board_state_1.player_two.score
