@@ -6,7 +6,12 @@ import numpy as np
 from congkak.board.constants import PITS_PER_SIDE
 from congkak.board.containers import BoardState, Player, PlayerNumber
 from congkak.board.transforms import active_player, opponent_player
-from congkak.moves.containers import BoardPerspective, MoveValidity, PlayerMove
+from congkak.moves.containers import (
+    BoardPerspective,
+    MoveCase,
+    MoveValidity,
+    PlayerMove,
+)
 
 
 def check_move_validity(
@@ -87,13 +92,22 @@ def move(
         side=side_player,
     )
 
+    # adding scores from round
     for enum_n, player_n in mapping.items():
         if player_n.number == player.number:
             updated_player_n = add_score(player_n.number, score, player_n)
         else:
             updated_player_n = player_n
         mapping[enum_n] = updated_player_n
+    move_case = check_move_case(overflow, side_enum)
+    # setting turn to appropriate
+    match move_case:
+        case MoveCase.NORMAL:
+            next_turn = opponent.number
+        case MoveCase.FREE:
+            next_turn = player.number
 
+    # updating player information
     if player.number == PlayerNumber.ONE:
         player_one = mapping[BoardPerspective.PLAYER]
         player_two = mapping[BoardPerspective.OPPONENT]
@@ -102,7 +116,7 @@ def move(
         player_two = mapping[BoardPerspective.PLAYER]
 
     return BoardState(
-        active=True, turn=opponent.number, player_one=player_one, player_two=player_two
+        active=True, turn=next_turn, player_one=player_one, player_two=player_two
     )
 
 
@@ -112,6 +126,16 @@ def add_score(
     player: Player,
 ) -> Player:
     return Player(number=player.number, score=player.score + score, side=player.side)
+
+
+def check_move_case(overflow: int, player_side: BoardPerspective) -> MoveCase:
+    # free condition is turn ended exactly
+    # before start of opponents pit,
+    # which is the score pit
+    if (overflow == -PITS_PER_SIDE) and (player_side == BoardPerspective.OPPONENT):
+        return MoveCase.FREE
+    else:
+        return MoveCase.NORMAL
 
 
 # def steal() -> BoardState:

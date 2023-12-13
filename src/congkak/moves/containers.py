@@ -27,3 +27,11 @@ class MoveValidity(enum.StrEnum):
 class BoardPerspective(enum.Enum):
     PLAYER = enum.auto()
     OPPONENT = enum.auto()
+
+
+@enum.unique
+class MoveCase(enum.Enum):
+    NORMAL = enum.auto()
+    FREE = enum.auto()
+    STEAL = enum.auto()
+    MISS = enum.auto()
