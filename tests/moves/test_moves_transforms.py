@@ -361,6 +361,37 @@ def test_move_score(
                 ),
             ),
         ),
+        (
+            BoardState(
+                active=True,
+                turn=PlayerNumber.TWO,
+                player_one=Player(
+                    number=PlayerNumber.ONE,
+                    score=1,
+                    side=np.array([7, 1, 2, 3, 4, 5, 6]),
+                ),
+                player_two=Player(
+                    number=PlayerNumber.TWO,
+                    score=0,
+                    side=np.array([1, 2, 3, 4, 5, 6, 7]),
+                ),
+            ),
+            PlayerMove(player_number=PlayerNumber.TWO, pit_number=3),
+            BoardState(
+                active=True,
+                turn=PlayerNumber.TWO,
+                player_one=Player(
+                    number=PlayerNumber.ONE,
+                    score=1,
+                    side=np.array([7, 1, 2, 3, 4, 5, 6]),
+                ),
+                player_two=Player(
+                    number=PlayerNumber.TWO,
+                    score=1,
+                    side=np.array([1, 2, 3, 0, 6, 7, 8]),
+                ),
+            ),
+        ),
     ],
 )
 def test_move_free_go(
