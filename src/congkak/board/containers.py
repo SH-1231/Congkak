@@ -4,9 +4,7 @@ import numpy.typing as npt
 import enum
 
 
-enum.unique
-
-
+@enum.unique
 class PlayerNumber(enum.Enum):
     ONE = enum.auto()
     TWO = enum.auto()
@@ -25,8 +23,6 @@ class BoardState:
     turn: PlayerNumber | None
     player_one: Player
     player_two: Player
-    # side_one: npt.NDArray[np.int32]
-    # side_two: npt.NDArray[np.int32]
 
 
 @dataclasses.dataclass()
