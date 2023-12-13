@@ -1,6 +1,6 @@
-from congkak.board.containers import BoardState, PlayerNumber, Player
-from congkak.moves.containers import PlayerMove
 import numpy as np
+from congkak.board.containers import BoardState, Player, PlayerNumber
+from congkak.moves.containers import PlayerMove
 
 
 def test_player_move() -> None:

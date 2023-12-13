@@ -1,11 +1,12 @@
-import numpy as np
 import copy
-
-from congkak.board.containers import BoardState, PlayerNumber, Player
-from congkak.moves.containers import PlayerMove, MoveValidity, BoardPerspective
-from congkak.board.transforms import active_player, opponent_player
-from congkak.board.constants import PITS_PER_SIDE
 import itertools
+
+import numpy as np
+
+from congkak.board.constants import PITS_PER_SIDE
+from congkak.board.containers import BoardState, Player, PlayerNumber
+from congkak.board.transforms import active_player, opponent_player
+from congkak.moves.containers import BoardPerspective, MoveValidity, PlayerMove
 
 
 def check_move_validity(

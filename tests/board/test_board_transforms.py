@@ -1,6 +1,6 @@
-from congkak.board.transforms import start_game, end_game, check_victory, check_winner
-from congkak.board.containers import BoardState, PlayerNumber
 import numpy as np
+from congkak.board.containers import BoardState, PlayerNumber
+from congkak.board.transforms import check_victory, check_winner, end_game, start_game
 
 
 def test_start_game() -> None:

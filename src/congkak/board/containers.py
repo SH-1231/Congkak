@@ -1,7 +1,8 @@
 import dataclasses
+import enum
+
 import numpy as np
 import numpy.typing as npt
-import enum
 
 
 @enum.unique

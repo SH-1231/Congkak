@@ -1,9 +1,8 @@
 import numpy as np
 import pytest
-
-from congkak.moves.transforms import move, check_move_validity
-from congkak.moves.containers import PlayerMove, MoveValidity
-from congkak.board.containers import BoardState, PlayerNumber, Player
+from congkak.board.containers import BoardState, Player, PlayerNumber
+from congkak.moves.containers import MoveValidity, PlayerMove
+from congkak.moves.transforms import check_move_validity, move
 
 
 def test_check_valid_move(
@@ -160,32 +159,29 @@ def test_move_normal(
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=0,
-                    side=np.array([8,0,0,0,0,0,0]),
+                    side=np.array([8, 0, 0, 0, 0, 0, 0]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0,0,0,0,0,0,0])
+                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
-            PlayerMove(
-                player_number=PlayerNumber.ONE,
-                pit_number=0
-            ),
+            PlayerMove(player_number=PlayerNumber.ONE, pit_number=0),
             BoardState(
                 active=True,
                 turn=PlayerNumber.TWO,
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=1,
-                    side=np.array([0,1,1,1,1,1,1]),
+                    side=np.array([0, 1, 1, 1, 1, 1, 1]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([1,0,0,0,0,0,0])
+                    side=np.array([1, 0, 0, 0, 0, 0, 0]),
                 ),
-            )
+            ),
         ),
         (
             BoardState(
@@ -194,32 +190,29 @@ def test_move_normal(
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=0,
-                    side=np.array([14,4,2,3,4,5,7]),
+                    side=np.array([14, 4, 2, 3, 4, 5, 7]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0,0,0,0,0,0,0])
+                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
-            PlayerMove(
-                player_number=PlayerNumber.ONE,
-                pit_number=0
-            ),
+            PlayerMove(player_number=PlayerNumber.ONE, pit_number=0),
             BoardState(
                 active=True,
                 turn=PlayerNumber.TWO,
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=1,
-                    side=np.array([0,5,3,4,5,6,8]),
+                    side=np.array([0, 5, 3, 4, 5, 6, 8]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([1,1,1,1,1,1,1])
+                    side=np.array([1, 1, 1, 1, 1, 1, 1]),
                 ),
-            )
+            ),
         ),
         (
             BoardState(
@@ -228,32 +221,29 @@ def test_move_normal(
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=0,
-                    side=np.array([16,4,2,3,4,5,7]),
+                    side=np.array([16, 4, 2, 3, 4, 5, 7]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0,0,0,0,0,0,0])
+                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
-            PlayerMove(
-                player_number=PlayerNumber.ONE,
-                pit_number=0
-            ),
+            PlayerMove(player_number=PlayerNumber.ONE, pit_number=0),
             BoardState(
                 active=True,
                 turn=PlayerNumber.TWO,
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=1,
-                    side=np.array([1,6,3,4,5,6,8]),
+                    side=np.array([1, 6, 3, 4, 5, 6, 8]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([1,1,1,1,1,1,1])
+                    side=np.array([1, 1, 1, 1, 1, 1, 1]),
                 ),
-            )
+            ),
         ),
         (
             BoardState(
@@ -262,32 +252,29 @@ def test_move_normal(
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=0,
-                    side=np.array([23,1,1,1,1,1,1]),
+                    side=np.array([23, 1, 1, 1, 1, 1, 1]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0,0,0,0,0,0,0])
+                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
-            PlayerMove(
-                player_number=PlayerNumber.ONE,
-                pit_number=0
-            ),
+            PlayerMove(player_number=PlayerNumber.ONE, pit_number=0),
             BoardState(
                 active=True,
                 turn=PlayerNumber.TWO,
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=2,
-                    side=np.array([1,3,3,3,3,3,3]),
+                    side=np.array([1, 3, 3, 3, 3, 3, 3]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([2,1,1,1,1,1,1])
+                    side=np.array([2, 1, 1, 1, 1, 1, 1]),
                 ),
-            )
+            ),
         ),
     ],
 )

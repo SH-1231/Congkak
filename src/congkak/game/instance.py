@@ -1,13 +1,13 @@
 from congkak.board.containers import GameStatistics
 from congkak.board.transforms import (
-    start_game,
     check_victory,
-    end_game,
     check_winner,
+    end_game,
+    start_game,
 )
-from congkak.moves.transforms import move
-from congkak.moves.containers import PlayerMove
 from congkak.game.custom_scenarios import CustomGameScenario
+from congkak.moves.containers import PlayerMove
+from congkak.moves.transforms import move
 
 
 def run_congkak(
