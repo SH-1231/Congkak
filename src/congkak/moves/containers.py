@@ -18,3 +18,8 @@ class MoveValidity(enum.StrEnum):
     VALID = f"Valide Move Selected"
     PLAYER = f"Invalid Player Moving"
     PIT = f"Invalid Pit Selected"
+
+@enum.unique
+class BoardPerspective(enum.Enum):
+    PLAYER = enum.auto()
+    OPPONENT = enum.auto()

@@ -53,3 +53,15 @@ def active_player(
             return board_state.player_two
         case _:
             raise ValueError("Only 2 players")
+        
+
+def opponent_player(
+    board_state: BoardState
+)-> Player:
+    match board_state.turn:
+        case board_state.player_one.number:
+            return board_state.player_two
+        case board_state.player_two.number:
+            return board_state.player_one
+        case _:
+            raise ValueError("Only 2 players")
