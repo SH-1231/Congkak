@@ -24,6 +24,7 @@ class BoardState:
     turn: PlayerNumber | None
     player_one: Player
     player_two: Player
+    n_turns: int = 1
 
 
 @dataclasses.dataclass()
