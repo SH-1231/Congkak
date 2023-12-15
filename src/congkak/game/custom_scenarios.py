@@ -2,7 +2,7 @@ import enum
 
 import numpy as np
 
-from congkak.board.constants import PITS_PER_SIDE
+from congkak.board.constants import MARBLES_PER_PIT, PITS_PER_SIDE
 from congkak.board.containers import BoardState, Player, PlayerNumber
 
 __all__ = ["CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING"]
@@ -25,12 +25,12 @@ CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING = {
         player_one=Player(
             number=PlayerNumber.ONE,
             score=0,
-            side=np.zeros(PITS_PER_SIDE, dtype=np.int32),
+            side=MARBLES_PER_PIT * np.ones(PITS_PER_SIDE, dtype=np.int32),
         ),
         player_two=Player(
             number=PlayerNumber.TWO,
             score=0,
-            side=np.zeros(PITS_PER_SIDE, dtype=np.int32),
+            side=MARBLES_PER_PIT * np.ones(PITS_PER_SIDE, dtype=np.int32),
         ),
     ),
     CustomGameScenario.FREE_GO: BoardState(

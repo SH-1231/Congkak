@@ -1,4 +1,3 @@
-import numpy as np
 from congkak.board.containers import BoardState, PlayerNumber
 from congkak.board.transforms import check_victory, check_winner, end_game, start_game
 
@@ -6,8 +5,6 @@ from congkak.board.transforms import check_victory, check_winner, end_game, star
 def test_start_game() -> None:
     game = start_game()
     assert game.active is True
-    assert np.all(game.player_one.side) == 0
-    assert np.all(game.player_two.side) == 0
     assert game.player_one.score == 0
     assert game.player_two.score == 0
 
