@@ -5,9 +5,12 @@ import numpy as np
 
 
 def dataclasses_instances_equal(instance_1: typing.Any, instance_2: typing.Any) -> bool:
+    numpy_int = (int, np.int32)
     if instance_1 is instance_2:
         return True
     if instance_1.__class__ is not instance_2.__class__:
+        if isinstance(instance_1, numpy_int) and isinstance(instance_2, numpy_int):
+            return True
         return False
     if isinstance(instance_1, np.ndarray) and isinstance(instance_2, np.ndarray):
         return np.array_equal(instance_1, instance_2)
