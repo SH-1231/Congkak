@@ -29,7 +29,9 @@ def move(
     pit_number: int,
 ) -> BoardState:
     selected_pit = pit_number
-
+    move_valid = check_move_validity(board_state, pit_number)
+    if move_valid != MoveValidity.VALID:
+        raise ValueError("Invalid Move")
     player = copy.deepcopy(active_player(board_state))
     opponent = copy.deepcopy(opponent_player(board_state))
 
@@ -131,6 +133,10 @@ def move(
         case MoveCase.MISS:
             next_turn = opponent.number
             extra_turns = 1
+
+    # check if opponent's side on next move is empty
+    if np.count_nonzero(mapping[BoardPerspective.OPPONENT].side) == 0:
+        next_turn = player.number
 
     turns_remaining = 1
     # updating player information

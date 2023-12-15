@@ -40,7 +40,7 @@ def test_check_invalid_pit(
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
+                    side=np.array([1, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
             0,
@@ -55,7 +55,7 @@ def test_check_invalid_pit(
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
+                    side=np.array([1, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
         ),
@@ -71,7 +71,7 @@ def test_check_invalid_pit(
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
+                    side=np.array([1, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
             0,
@@ -86,7 +86,7 @@ def test_check_invalid_pit(
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
+                    side=np.array([1, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
         ),
@@ -405,7 +405,7 @@ def test_move_free_go(
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0, 0, 0, 10, 0, 0, 0]),
+                    side=np.array([1, 0, 0, 10, 0, 0, 0]),
                 ),
             ),
             2,
@@ -420,7 +420,7 @@ def test_move_free_go(
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([0, 0, 0, 0, 0, 0, 0]),
+                    side=np.array([1, 0, 0, 0, 0, 0, 0]),
                 ),
             ),
         ),
