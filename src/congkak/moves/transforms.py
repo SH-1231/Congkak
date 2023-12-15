@@ -113,7 +113,6 @@ def move(
     )
     # setting turn to appropriate
     turns_remaining = board_state.n_turns - 1
-    print(turns_remaining, move_case)
     extra_turns = 0
     match move_case:
         case MoveCase.NORMAL:
@@ -144,7 +143,6 @@ def move(
     else:
         player_one = mapping[BoardPerspective.OPPONENT]
         player_two = mapping[BoardPerspective.PLAYER]
-    print(next_turn, player.number)
     return BoardState(
         active=True,
         turn=next_turn,
