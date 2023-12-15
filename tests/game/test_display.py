@@ -31,9 +31,11 @@ def test_terminal_show_board(capsys: pytest.CaptureFixture) -> None:
     spacing = "\n"
     opponent_pit_number = "pit number:  1  2  3  4  5  6  7  \n"
     spacing = "\n"
+    opponent_number____ = "                   Player 2\n"
     opponent_side______ = "         /-[ 1, 2, 3, 4, 5, 6, 7]-\\  [05]\n"
     dividing_line______ = "        <-------------------------->\n"
     player_side________ = "   [10]  \\-[ 7, 6, 5, 4, 3, 2, 1]-/ \n"
+    player_number______ = "                   Player 1\n"
     spacing = "\n"
     player_pit_number__ = "pit number:  7  6  5  4  3  2  1  \n"
     spacing = "\n"
@@ -46,9 +48,11 @@ def test_terminal_show_board(capsys: pytest.CaptureFixture) -> None:
         + spacing
         + opponent_pit_number
         + spacing
+        + opponent_number____
         + opponent_side______
         + dividing_line______
         + player_side________
+        + player_number______
         + spacing
         + player_pit_number__
         + spacing

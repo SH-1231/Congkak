@@ -10,10 +10,18 @@ from congkak.moves.transforms import move
 
 
 def run_congkak() -> GameStatistics:
+    fixed_board_input = input("Run PyCongkak with fixed board? (yes/no) [yes]")
+    match fixed_board_input:
+        case "yes":
+            fixed_board = True
+        case "no":
+            fixed_board = False
+        case _:
+            fixed_board = True
     board_state = start_game()
     game_history = [board_state]
     while board_state.active:
-        terminal_show_board(board_state)
+        terminal_show_board(board_state, fixed_board=fixed_board)
         pit_number = int(input())
         board_state = move(board_state=board_state, pit_number=pit_number)
 
