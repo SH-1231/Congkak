@@ -2,9 +2,9 @@ from importlib import metadata
 
 import numpy as np
 
-from congkak.board.constants import PITS_PER_SIDE
-from congkak.board.containers import BoardState, Player, PlayerNumber
-from congkak.moves.containers import BoardPerspective
+from pycongkak.board.constants import PITS_PER_SIDE
+from pycongkak.board.containers import BoardState, Player, PlayerNumber
+from pycongkak.moves.containers import BoardPerspective
 
 
 def int_to_string_with_min_spacing(integer: int, min_characters: int = 2) -> str:
@@ -45,7 +45,7 @@ def terminal_show_board(board_state: BoardState, fixed_board: bool = True) -> No
     player_side_str = player_side_str_start[:-1] + "]-/"
     opponent_side_str = opponent_side_str_start[:-1] + "]-\\"
 
-    congkak_string_____ = f"PyCongkak@{metadata.version('congkak')} by Shaun Ho\n"
+    pycongkak_string_____ = f"Pypycongkak@{metadata.version('pycongkak')} by Shaun Ho\n"
     spacing = "\n"
     turn_string________ = (
         f"Player {board_state.turn}'s go, {board_state.n_turns} turns remaining\n"
@@ -64,7 +64,7 @@ def terminal_show_board(board_state: BoardState, fixed_board: bool = True) -> No
     selector_text______ = "Please select a pit number [0-6]: "
 
     string_to_print = (
-        congkak_string_____
+        pycongkak_string_____
         + spacing
         + turn_string________
         + spacing

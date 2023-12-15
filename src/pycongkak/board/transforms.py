@@ -1,14 +1,13 @@
 import numpy as np
 
-from congkak.board.containers import BoardState, GameStatistics, Player
-from congkak.game.custom_scenarios import (
+from pycongkak.board.containers import BoardState, GameStatistics, Player
+from pycongkak.game.custom_scenarios import (
     CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING,
     CustomGameScenario,
 )
 
 
 def start_game(
-    fixed_board: bool = True,
     custom_game_scenario: CustomGameScenario = CustomGameScenario.NORMAL,
 ) -> BoardState:
     return CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING[custom_game_scenario]

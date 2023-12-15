@@ -1,8 +1,8 @@
 import dataclasses
 import enum
 
-from congkak.board.constants import PITS_PER_SIDE
-from congkak.board.containers import PlayerNumber
+from pycongkak.board.constants import PITS_PER_SIDE
+from pycongkak.board.containers import PlayerNumber
 
 
 @dataclasses.dataclass(frozen=True)

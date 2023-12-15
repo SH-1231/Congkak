@@ -1,9 +1,9 @@
 import numpy as np
 import pytest
-from congkak.board.containers import BoardState, GameStatistics, Player, PlayerNumber
-from congkak.board.transforms import check_victory, check_winner
-from congkak.moves.transforms import move
-from congkak.testing import dataclasses_instances_equal
+from pycongkak.board.containers import BoardState, GameStatistics, Player, PlayerNumber
+from pycongkak.board.transforms import check_victory, check_winner
+from pycongkak.moves.transforms import move
+from pycongkak.testing import dataclasses_instances_equal
 
 
 @pytest.fixture

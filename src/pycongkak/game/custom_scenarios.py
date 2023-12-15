@@ -2,8 +2,8 @@ import enum
 
 import numpy as np
 
-from congkak.board.constants import MARBLES_PER_PIT, PITS_PER_SIDE
-from congkak.board.containers import BoardState, Player, PlayerNumber
+from pycongkak.board.constants import MARBLES_PER_PIT, PITS_PER_SIDE
+from pycongkak.board.containers import BoardState, Player, PlayerNumber
 
 __all__ = ["CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING"]
 

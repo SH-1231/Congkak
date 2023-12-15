@@ -1,5 +1,5 @@
-from congkak.board.containers import BoardState, PlayerNumber
-from congkak.board.transforms import check_victory, check_winner, end_game, start_game
+from pycongkak.board.containers import BoardState, PlayerNumber
+from pycongkak.board.transforms import check_victory, check_winner, end_game, start_game
 
 
 def test_start_game() -> None:

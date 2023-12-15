@@ -3,10 +3,10 @@ import itertools
 
 import numpy as np
 
-from congkak.board.constants import PITS_PER_SIDE
-from congkak.board.containers import BoardState, Player, PlayerNumber
-from congkak.board.transforms import active_player, opponent_player
-from congkak.moves.containers import (
+from pycongkak.board.constants import PITS_PER_SIDE
+from pycongkak.board.containers import BoardState, Player, PlayerNumber
+from pycongkak.board.transforms import active_player, opponent_player
+from pycongkak.moves.containers import (
     BoardPerspective,
     MoveCase,
     MoveValidity,
@@ -113,6 +113,8 @@ def move(
     # setting turn to appropriate
     turns_remaining = board_state.n_turns - 1
     extra_turns = 0
+    # TODO: when I have 2 turns, I land in pit, I lose one of my free turns
+    # TODO: Game should end when one player's side has 0 marbles remaining
     match move_case:
         case MoveCase.NORMAL:
             next_turn = (
