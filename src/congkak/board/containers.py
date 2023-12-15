@@ -90,6 +90,7 @@ class GameData:
 @dataclasses.dataclass
 class GameStatistics:
     winner: Player | None
+    loser: Player | None
     margin: int
 
 

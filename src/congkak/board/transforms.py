@@ -34,12 +34,15 @@ def check_winner(board_state: BoardState) -> GameStatistics:
     margin = board_state.player_one.score - board_state.player_two.score
     if margin > 0:
         winner = board_state.player_one
+        loser = board_state.player_two
     elif margin < 0:
         winner = board_state.player_two
+        loser = board_state.player_one
     else:
         winner = None
+        loser = None
 
-    return GameStatistics(winner=winner, margin=abs(margin))
+    return GameStatistics(winner=winner, loser=loser, margin=abs(margin))
 
 
 def active_player(board_state: BoardState) -> Player:
