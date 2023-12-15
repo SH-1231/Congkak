@@ -83,12 +83,12 @@ CUSTOM_GAME_INDEX_TO_BOARD_STATE_MAPPING = {
         player_one=Player(
             number=PlayerNumber.ONE,
             score=0,
-            side=np.ones(PITS_PER_SIDE, dtype=np.int32),
+            side=np.array([1, 0, 0, 8, 3, 2, 1]),
         ),
         player_two=Player(
             number=PlayerNumber.TWO,
             score=0,
-            side=np.ones(PITS_PER_SIDE, dtype=np.int32),
+            side=np.array([1, 10, 3, 0, 2, 2, 2]),
         ),
     ),
 }

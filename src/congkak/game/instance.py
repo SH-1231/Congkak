@@ -6,7 +6,6 @@ from congkak.board.transforms import (
     start_game,
 )
 from congkak.game.custom_scenarios import CustomGameScenario
-from congkak.moves.containers import PlayerMove
 from congkak.moves.transforms import move
 
 
@@ -19,12 +18,7 @@ def run_congkak(
         pit_number = int(
             input(f"Player {board_state.turn}'s Go. Please select a pit (0-6):")
         )
-        board_state = move(
-            board_state=board_state,
-            player_move=PlayerMove(
-                player_number=board_state.turn, pit_number=pit_number
-            ),
-        )
+        board_state = move(board_state=board_state, pit_number=pit_number)
         game_history.append(board_state)
         victory = check_victory(board_state)
         if victory:
