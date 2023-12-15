@@ -5,7 +5,6 @@ from congkak.board.transforms import (
     end_game,
     start_game,
 )
-
 from congkak.game.display import terminal_show_board
 from congkak.moves.containers import PlayerMove
 from congkak.moves.transforms import move
