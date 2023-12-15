@@ -1,6 +1,6 @@
 import pytest
-from congkak.board.containers import PlayerNumber
-from congkak.moves.containers import PlayerMove
+from pycongkak.board.containers import PlayerNumber
+from pycongkak.moves.containers import PlayerMove
 
 
 def test_player_move() -> None:

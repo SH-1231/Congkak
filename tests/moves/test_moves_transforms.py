@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
-from congkak.board.containers import BoardState, Player, PlayerNumber
-from congkak.moves.containers import MoveValidity
-from congkak.moves.transforms import check_move_validity, move
+from pycongkak.board.containers import BoardState, Player, PlayerNumber
+from pycongkak.moves.containers import MoveValidity
+from pycongkak.moves.transforms import check_move_validity, move
 
 
 def test_check_valid_move(

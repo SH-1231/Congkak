@@ -2,7 +2,7 @@ import json
 
 import numpy as np
 import pytest
-from congkak.board.containers import BoardState, Player, PlayerNumber
+from pycongkak.board.containers import BoardState, Player, PlayerNumber
 
 
 @pytest.fixture

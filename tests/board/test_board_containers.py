@@ -1,11 +1,11 @@
 import numpy as np
-from congkak.board.containers import (
+from pycongkak.board.containers import (
     BoardState,
     Player,
     PlayerNumber,
 )
-from congkak.moves.containers import PlayerMove
-from congkak.testing import dataclasses_instances_equal
+from pycongkak.moves.containers import PlayerMove
+from pycongkak.testing import dataclasses_instances_equal
 
 
 def test_player_move() -> None:
@@ -17,7 +17,7 @@ def test_player_move() -> None:
 class TestContainers:
     @staticmethod
     def test_board_state() -> None:
-        from congkak.board.constants import PITS_PER_SIDE
+        from pycongkak.board.constants import PITS_PER_SIDE
 
         board_state = BoardState(
             active=True,

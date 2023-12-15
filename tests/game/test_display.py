@@ -2,8 +2,8 @@ from importlib import metadata
 
 import numpy as np
 import pytest
-from congkak.board.containers import BoardState, Player, PlayerNumber
-from congkak.game.display import int_to_string_with_min_spacing, terminal_show_board
+from pycongkak.board.containers import BoardState, Player, PlayerNumber
+from pycongkak.game.display import int_to_string_with_min_spacing, terminal_show_board
 
 
 def test_print_with_min_spacing() -> None:
@@ -25,7 +25,7 @@ def test_terminal_show_board_player_one(capsys: pytest.CaptureFixture) -> None:
             n_turns=3,
         )
     )
-    congkak_string_____ = f"PyCongkak@{metadata.version('congkak')} by Shaun Ho\n"
+    pycongkak_string_____ = f"Pypycongkak@{metadata.version('pycongkak')} by Shaun Ho\n"
     spacing = "\n"
     turn_string________ = "Player 1's go, 3 turns remaining\n"
     spacing = "\n"
@@ -42,7 +42,7 @@ def test_terminal_show_board_player_one(capsys: pytest.CaptureFixture) -> None:
     selector_text______ = "Please select a pit number [0-6]: \n"
 
     expected_string = (
-        congkak_string_____
+        pycongkak_string_____
         + spacing
         + turn_string________
         + spacing
@@ -78,7 +78,7 @@ def test_terminal_show_board_player_two(capsys: pytest.CaptureFixture) -> None:
         ),
         fixed_board=True,
     )
-    congkak_string_____ = f"PyCongkak@{metadata.version('congkak')} by Shaun Ho\n"
+    pycongkak_string_____ = f"Pypycongkak@{metadata.version('pycongkak')} by Shaun Ho\n"
     spacing = "\n"
     turn_string________ = "Player 2's go, 3 turns remaining\n"
     spacing = "\n"
@@ -95,7 +95,7 @@ def test_terminal_show_board_player_two(capsys: pytest.CaptureFixture) -> None:
     selector_text______ = "Please select a pit number [0-6]: \n"
 
     expected_string = (
-        congkak_string_____
+        pycongkak_string_____
         + spacing
         + turn_string________
         + spacing
@@ -129,7 +129,7 @@ def test_terminal_show_board_player_two(capsys: pytest.CaptureFixture) -> None:
         ),
         fixed_board=False,
     )
-    congkak_string_____ = f"PyCongkak@{metadata.version('congkak')} by Shaun Ho\n"
+    pycongkak_string_____ = f"Pypycongkak@{metadata.version('pycongkak')} by Shaun Ho\n"
     spacing = "\n"
     turn_string________ = "Player 2's go, 3 turns remaining\n"
     spacing = "\n"
@@ -146,7 +146,7 @@ def test_terminal_show_board_player_two(capsys: pytest.CaptureFixture) -> None:
     selector_text______ = "Please select a pit number [0-6]: \n"
 
     expected_string = (
-        congkak_string_____
+        pycongkak_string_____
         + spacing
         + turn_string________
         + spacing

@@ -1,16 +1,16 @@
-from congkak.board.containers import GameStatistics
-from congkak.board.transforms import (
+from pycongkak.board.containers import GameStatistics
+from pycongkak.board.transforms import (
     check_victory,
     check_winner,
     end_game,
     start_game,
 )
-from congkak.game.display import terminal_show_board
-from congkak.moves.transforms import move
+from pycongkak.game.display import terminal_show_board
+from pycongkak.moves.transforms import move
 
 
-def run_congkak() -> GameStatistics:
-    fixed_board_input = input("Run PyCongkak with fixed board? (yes/no) [yes]")
+def run_pycongkak() -> GameStatistics:
+    fixed_board_input = input("Run Pypycongkak with fixed board? (yes/no) [yes]")
     match fixed_board_input:
         case "yes":
             fixed_board = True
@@ -34,4 +34,4 @@ def run_congkak() -> GameStatistics:
 
 
 if __name__ == "__main__":
-    run_congkak()
+    run_pycongkak()
