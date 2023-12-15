@@ -25,7 +25,7 @@ def terminal_show_board(
         case PlayerNumber.TWO:
             mapping[BoardPerspective.PLAYER] = board_state.player_two
             mapping[BoardPerspective.OPPONENT] = board_state.player_one
-        case i:
+        case _:
             raise ValueError("Unknown player turn")
 
     opponent = mapping[BoardPerspective.OPPONENT]
