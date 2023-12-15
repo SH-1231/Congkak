@@ -5,6 +5,7 @@ from congkak.board.transforms import (
     end_game,
     start_game,
 )
+
 from congkak.game.display import terminal_show_board
 from congkak.moves.containers import PlayerMove
 from congkak.moves.transforms import move
@@ -22,6 +23,7 @@ def run_congkak() -> GameStatistics:
                 player_number=board_state.turn, pit_number=pit_number
             ),
         )
+
         game_history.append(board_state)
         victory = check_victory(board_state)
         if victory:

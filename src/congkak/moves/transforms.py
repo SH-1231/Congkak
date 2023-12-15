@@ -10,18 +10,15 @@ from congkak.moves.containers import (
     BoardPerspective,
     MoveCase,
     MoveValidity,
-    PlayerMove,
 )
 
 
 def check_move_validity(
     board_state: BoardState,
-    player_move: PlayerMove,
+    pit_number: int,
 ) -> MoveValidity:
     player = active_player(board_state)
-    if player_move.player_number != board_state.turn:
-        return MoveValidity.PLAYER
-    elif player.side[player_move.pit_number] < 1:
+    if player.side[pit_number] < 1 or pit_number > PITS_PER_SIDE - 1:
         return MoveValidity.PIT
     else:
         return MoveValidity.VALID
@@ -29,10 +26,12 @@ def check_move_validity(
 
 def move(
     board_state: BoardState,
-    player_move: PlayerMove,
+    pit_number: int,
 ) -> BoardState:
-    selected_pit = player_move.pit_number
-
+    selected_pit = pit_number
+    move_valid = check_move_validity(board_state, pit_number)
+    if move_valid != MoveValidity.VALID:
+        raise ValueError("Invalid Move")
     player = copy.deepcopy(active_player(board_state))
     opponent = copy.deepcopy(opponent_player(board_state))
 
@@ -133,9 +132,13 @@ def move(
             )
         case MoveCase.MISS:
             next_turn = opponent.number
-            turns_remaining += 1
             extra_turns = 1
 
+    # check if opponent's side on next move is empty
+    if np.count_nonzero(mapping[BoardPerspective.OPPONENT].side) == 0:
+        next_turn = player.number
+
+    turns_remaining = 1
     # updating player information
     if player.number == PlayerNumber.ONE:
         player_one = mapping[BoardPerspective.PLAYER]
