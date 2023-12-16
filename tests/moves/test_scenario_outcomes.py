@@ -56,7 +56,12 @@ def test_custom_scenario(custom_initial_board: BoardState) -> None:
     assert victory is True
     expected_winner = GameStatistics(
         winner=Player(PlayerNumber.ONE, score=19, side=np.array([0, 0, 0, 0, 0, 0, 0])),
-        loser=Player(PlayerNumber.TWO, score=7, side=np.array([0, 0, 0, 0, 0, 0, 0])),
+        player_one=Player(
+            PlayerNumber.ONE, score=19, side=np.array([0, 0, 0, 0, 0, 0, 0])
+        ),
+        player_two=Player(
+            PlayerNumber.TWO, score=7, side=np.array([0, 0, 0, 0, 0, 0, 0])
+        ),
         margin=12,
     )
     assert dataclasses_instances_equal(scenario_winner, expected_winner)
