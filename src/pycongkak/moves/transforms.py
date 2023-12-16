@@ -124,23 +124,26 @@ def move(
                 if turns_remaining == 0
                 else player.number
             )
+            turns_remaining = 1
         case MoveCase.FREE:
             next_turn = player.number
+            turns_remaining += 1
         case MoveCase.STEAL:
             next_turn = opponent.number if turns_remaining == 0 else player.number
+            turns_remaining = 1
             mapping = steal(
                 mapping=mapping,
                 player_pit_number=end_pit,
             )
         case MoveCase.MISS:
             next_turn = opponent.number
+            turns_remaining = 1
             extra_turns = 1
 
     # check if opponent's side on next move is empty
     if np.count_nonzero(mapping[BoardPerspective.OPPONENT].side) == 0:
         next_turn = player.number
 
-    turns_remaining = 1
     # updating player information
     if player.number == PlayerNumber.ONE:
         player_one = mapping[BoardPerspective.PLAYER]
