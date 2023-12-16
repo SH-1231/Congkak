@@ -25,7 +25,8 @@ def end_game(board_state: BoardState) -> BoardState:
 def check_victory(board_state: BoardState) -> bool:
     # game ends when no marbles in pits remaining.
     game_over = (
-        np.count_nonzero(board_state.player_one.side + board_state.player_two.side) == 0
+        np.count_nonzero(board_state.player_one.side) == 0
+        or np.count_nonzero(board_state.player_two.side) == 0
     )
     return game_over
 
@@ -34,15 +35,17 @@ def check_winner(board_state: BoardState) -> GameStatistics:
     margin = board_state.player_one.score - board_state.player_two.score
     if margin > 0:
         winner = board_state.player_one
-        loser = board_state.player_two
     elif margin < 0:
         winner = board_state.player_two
-        loser = board_state.player_one
     else:
         winner = None
-        loser = None
 
-    return GameStatistics(winner=winner, loser=loser, margin=abs(margin))
+    return GameStatistics(
+        winner=winner,
+        player_one=board_state.player_one,
+        player_two=board_state.player_two,
+        margin=abs(margin),
+    )
 
 
 def active_player(board_state: BoardState) -> Player:
