@@ -374,6 +374,39 @@ def test_move_score(
                 ),
             ),
         ),
+        (
+            BoardState(
+                active=True,
+                turn=PlayerNumber.TWO,
+                n_turns=2,
+                player_one=Player(
+                    number=PlayerNumber.ONE,
+                    score=1,
+                    side=np.array([7, 1, 2, 3, 4, 5, 6]),
+                ),
+                player_two=Player(
+                    number=PlayerNumber.TWO,
+                    score=0,
+                    side=np.array([1, 2, 3, 4, 5, 6, 7]),
+                ),
+            ),
+            3,
+            BoardState(
+                active=True,
+                turn=PlayerNumber.TWO,
+                n_turns=2,
+                player_one=Player(
+                    number=PlayerNumber.ONE,
+                    score=1,
+                    side=np.array([7, 1, 2, 3, 4, 5, 6]),
+                ),
+                player_two=Player(
+                    number=PlayerNumber.TWO,
+                    score=1,
+                    side=np.array([1, 2, 3, 0, 6, 7, 8]),
+                ),
+            ),
+        ),
     ],
 )
 def test_move_free_go(
@@ -384,6 +417,7 @@ def test_move_free_go(
     board_state_1 = move(board_state=initial_board_state, pit_number=pit_number)
 
     assert board_state_1.turn == expected_board_state.turn
+    assert board_state_1.n_turns == expected_board_state.n_turns
     assert np.all(board_state_1.player_one.side == expected_board_state.player_one.side)
     assert np.all(board_state_1.player_two.side == expected_board_state.player_two.side)
     assert board_state_1.player_one.score == expected_board_state.player_one.score
@@ -461,10 +495,11 @@ def test_move_free_go(
             BoardState(
                 active=True,
                 turn=PlayerNumber.ONE,
+                n_turns=2,
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=0,
-                    side=np.array([7, 1, 2, 3, 4, 5, 6]),
+                    side=np.array([1, 0, 2, 3, 4, 5, 6]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
@@ -476,46 +511,49 @@ def test_move_free_go(
             BoardState(
                 active=True,
                 turn=PlayerNumber.ONE,
+                n_turns=1,
                 player_one=Player(
                     number=PlayerNumber.ONE,
-                    score=1,
-                    side=np.array([0, 2, 3, 4, 5, 6, 7]),
+                    score=6,
+                    side=np.array([0, 1, 2, 3, 4, 5, 6]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([1, 2, 3, 4, 5, 6, 7]),
+                    side=np.array([1, 2, 3, 4, 5, 0, 7]),
                 ),
             ),
         ),
         (
             BoardState(
                 active=True,
-                turn=PlayerNumber.TWO,
+                turn=PlayerNumber.ONE,
+                n_turns=2,
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=1,
-                    side=np.array([7, 1, 2, 3, 4, 5, 6]),
+                    side=np.array([2, 1, 0, 3, 4, 5, 6]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
                     score=0,
-                    side=np.array([1, 2, 3, 4, 5, 6, 7]),
+                    side=np.array([1, 2, 3, 4, 0, 6, 7]),
                 ),
             ),
-            3,
+            0,
             BoardState(
                 active=True,
-                turn=PlayerNumber.TWO,
+                turn=PlayerNumber.ONE,
+                n_turns=1,
                 player_one=Player(
                     number=PlayerNumber.ONE,
                     score=1,
-                    side=np.array([7, 1, 2, 3, 4, 5, 6]),
+                    side=np.array([0, 2, 1, 3, 4, 5, 6]),
                 ),
                 player_two=Player(
                     number=PlayerNumber.TWO,
-                    score=1,
-                    side=np.array([1, 2, 3, 0, 6, 7, 8]),
+                    score=0,
+                    side=np.array([1, 2, 3, 4, 0, 6, 7]),
                 ),
             ),
         ),
@@ -529,6 +567,7 @@ def test_move_steal(
     board_state_1 = move(board_state=initial_board_state, pit_number=pit_number)
 
     assert board_state_1.turn == expected_board_state.turn
+    assert board_state_1.n_turns == expected_board_state.n_turns
     assert np.all(board_state_1.player_one.side == expected_board_state.player_one.side)
     assert np.all(board_state_1.player_two.side == expected_board_state.player_two.side)
     assert board_state_1.player_one.score == expected_board_state.player_one.score
