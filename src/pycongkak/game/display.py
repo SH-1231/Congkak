@@ -6,7 +6,8 @@ from pycongkak.board.constants import PITS_PER_SIDE
 from pycongkak.board.containers import BoardState, GameStatistics, Player, PlayerNumber
 from pycongkak.moves.containers import BoardPerspective
 
-pycongkak_string = f"Pypycongkak@{metadata.version('pycongkak')} by Shaun Ho\n"
+__all__ = ["PYCONGKAK_DISPLAY_STRING"]
+PYCONGKAK_DISPLAY_STRING = f"Pypycongkak@{metadata.version('pycongkak')} by Shaun Ho\n"
 
 
 def int_to_string_with_min_spacing(integer: int, min_characters: int = 2) -> str:
@@ -62,10 +63,9 @@ def terminal_show_board(board_state: BoardState, fixed_board: bool = True) -> No
     spacing = "\n"
     player_pit_number = "pit number:  7  6  5  4  3  2  1  \n"
     spacing = "\n"
-    selector_text = "Please select a pit number [0-6]: "
 
     string_to_print = (
-        pycongkak_string
+        PYCONGKAK_DISPLAY_STRING
         + spacing
         + turn_string
         + spacing
@@ -78,8 +78,6 @@ def terminal_show_board(board_state: BoardState, fixed_board: bool = True) -> No
         + player_number
         + spacing
         + player_pit_number
-        + spacing
-        + selector_text
     )
     print(string_to_print)
 
@@ -90,13 +88,16 @@ def terminal_show_victory(game_statistics: GameStatistics):
         winner_string_1 = f"Winner: Player {game_statistics.winner.number}"
         winner_string_2 = f", scoring {game_statistics.winner.score}"
         string_to_print = (
-            pycongkak_string + game_ended_string + winner_string_1 + winner_string_2
+            PYCONGKAK_DISPLAY_STRING
+            + game_ended_string
+            + winner_string_1
+            + winner_string_2
         )
     else:
         draw_string = (
             f"Draw: Both players scored {game_statistics.player_one.score} marbles"
         )
-        string_to_print = pycongkak_string + game_ended_string + draw_string
+        string_to_print = PYCONGKAK_DISPLAY_STRING + game_ended_string + draw_string
 
     print(string_to_print)
 

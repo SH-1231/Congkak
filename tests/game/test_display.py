@@ -44,7 +44,6 @@ def test_terminal_show_board_player_one(capsys: pytest.CaptureFixture) -> None:
     spacing = "\n"
     player_pit_number = "pit number:  7  6  5  4  3  2  1  \n"
     spacing = "\n"
-    selector_text = "Please select a pit number [0-6]: \n"
 
     expected_string = (
         pycongkak_string
@@ -61,7 +60,6 @@ def test_terminal_show_board_player_one(capsys: pytest.CaptureFixture) -> None:
         + spacing
         + player_pit_number
         + spacing
-        + selector_text
     )
     capture_result = capsys.readouterr()
     expected_print_statement = capture_result.out
@@ -97,7 +95,6 @@ def test_terminal_show_board_player_two(capsys: pytest.CaptureFixture) -> None:
     spacing = "\n"
     player_pit_number = "pit number:  7  6  5  4  3  2  1  \n"
     spacing = "\n"
-    selector_text = "Please select a pit number [0-6]: \n"
 
     expected_string = (
         pycongkak_string
@@ -114,7 +111,6 @@ def test_terminal_show_board_player_two(capsys: pytest.CaptureFixture) -> None:
         + spacing
         + player_pit_number
         + spacing
-        + selector_text
     )
     capture_result = capsys.readouterr()
     expected_print_statement = capture_result.out
@@ -148,7 +144,6 @@ def test_terminal_show_board_player_two(capsys: pytest.CaptureFixture) -> None:
     spacing = "\n"
     player_pit_number = "pit number:  7  6  5  4  3  2  1  \n"
     spacing = "\n"
-    selector_text = "Please select a pit number [0-6]: \n"
 
     expected_string = (
         pycongkak_string
@@ -165,7 +160,6 @@ def test_terminal_show_board_player_two(capsys: pytest.CaptureFixture) -> None:
         + spacing
         + player_pit_number
         + spacing
-        + selector_text
     )
     capture_result = capsys.readouterr()
     expected_print_statement = capture_result.out

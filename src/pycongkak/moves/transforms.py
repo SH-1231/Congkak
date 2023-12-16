@@ -18,7 +18,11 @@ def check_move_validity(
     pit_number: int,
 ) -> MoveValidity:
     player = active_player(board_state)
-    if player.side[pit_number] < 1 or pit_number > PITS_PER_SIDE - 1:
+    if (
+        (player.side[pit_number] < 1)
+        or (pit_number > PITS_PER_SIDE - 1)
+        or (pit_number < 0)
+    ):
         return MoveValidity.PIT
     else:
         return MoveValidity.VALID
